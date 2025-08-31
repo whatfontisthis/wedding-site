@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { languages, fonts, type Language, type Font } from "@/config/site";
+import { languages, fonts, type Language, type Font } from "@/constants/site";
 
 type SettingsDropdownProps = {
   currentLanguage: Language;

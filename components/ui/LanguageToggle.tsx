@@ -1,6 +1,6 @@
 "use client";
 
-import { type Language } from "@/config/site";
+import { type Language } from "@/constants/site";
 
 type LanguageToggleProps = {
   currentLanguage: Language;

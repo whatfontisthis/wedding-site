@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { languages } from "@/config/site";
+import { languages } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: languages.ko.metaTitle,

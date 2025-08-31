@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { languages, type Language } from "@/config/site";
-import Navigation from "@/components/Navigation";
-import PageTransition from "@/components/PageTransition";
-import Section from "@/components/Section";
+import { languages, type Language } from "@/constants/site";
+import Navigation from "@/components/layout/Navigation";
+import PageTransition from "@/components/layout/PageTransition";
+import Section from "@/components/ui/Section";
 
 export default function GuestbookPage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");

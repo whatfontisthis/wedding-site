@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Hero from "@/components/Hero";
-import Navigation from "@/components/Navigation";
-import { languages, type Language } from "@/config/site";
+import Hero from "@/components/features/Hero";
+import Navigation from "@/components/layout/Navigation";
+import { languages, type Language } from "@/constants/site";
 
 export default function Home() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
@@ -20,7 +20,6 @@ export default function Home() {
 
       {/* Hero Section - Full Screen */}
       <Hero
-        introLine={siteData.hero.introLine}
         namesLine={siteData.hero.namesLine}
         dateLocationLine={siteData.hero.dateLocationLine}
         ctaHref={siteData.hero.ctaHref}

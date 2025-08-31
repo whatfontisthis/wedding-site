@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { languages, type Language } from "@/config/site";
-import Navigation from "@/components/Navigation";
-import PageTransition from "@/components/PageTransition";
-import Section from "@/components/Section";
-import GalleryGrid from "@/components/GalleryGrid";
+import { languages, type Language } from "@/constants/site";
+import Navigation from "@/components/layout/Navigation";
+import PageTransition from "@/components/layout/PageTransition";
+import Section from "@/components/ui/Section";
+import GalleryGrid from "@/components/features/GalleryGrid";
 
 export default function GalleryPage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");

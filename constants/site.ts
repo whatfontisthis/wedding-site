@@ -1,8 +1,9 @@
-export const languages = {
+import type { SiteConfig, FontsConfig } from '../types/site';
+
+export const languages: SiteConfig = {
   ko: {
     //히어로 섹션
     hero: {
-      introLine: "결혼식에 초대합니다",
       namesLine: "신랑 이우빈 & 신부 김지민",
       dateLocationLine: "2025.10.19(일) 3시30분 예식",
       ctaHref: "#rsvp",
@@ -38,7 +39,6 @@ export const languages = {
 
   en: {
     hero: {
-      introLine: "You're invited to the wedding of",
       namesLine: "Woobin Lee & Jimin Kim",
       dateLocationLine: "Oct 19, 2025 (Sun) · 3:30 PM ",
       ctaHref: "#rsvp",
@@ -69,7 +69,7 @@ export const languages = {
   },
 } as const;
 
-export const fonts = {
+export const fonts: FontsConfig = {
   yeonaesidae: {
     name: "210 Yeonaesidae",
     family: "210 Yeonaesidae",
@@ -79,6 +79,5 @@ export const fonts = {
 
 export const siteConfig = languages.ko; // Default to Korean
 
-export type Language = keyof typeof languages;
-export type Font = keyof typeof fonts;
+export { type Language, type Font } from '../types/site';
 export type SiteConfig = typeof siteConfig;

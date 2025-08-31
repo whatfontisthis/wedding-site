@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 
 type HeroProps = {
-  introLine: string;
   namesLine: string;
   dateLocationLine: string;
   ctaHref: string;
@@ -11,7 +10,6 @@ type HeroProps = {
 };
 
 export default function Hero({
-  introLine,
   namesLine,
   dateLocationLine,
   ctaHref,
@@ -69,6 +67,7 @@ export default function Hero({
             className={`absolute w-full h-full object-cover transition-opacity duration-3000 ease-in-out ${
               index === currentImageIndex && imageLoaded ? "opacity-100" : "opacity-0"
             }`}
+            
             style={{ objectPosition: image.position }}
             onLoad={() => {
               if (index === 0) setImageLoaded(true);
@@ -78,13 +77,10 @@ export default function Hero({
       </div>
 
       {/* Text Content - Top Center */}
-      <div className={`absolute top-20 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
+      <div className={`absolute top-10 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
         imageLoaded ? "opacity-100" : "opacity-0"
       }`}>
         <div className="space-y-2">
-          <p className="text-white/90 text-sm sm:text-base font-light tracking-wide drop-shadow-lg">
-            {introLine}
-          </p>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white drop-shadow-xl leading-relaxed tracking-wide">
             {namesLine}
           </h1>

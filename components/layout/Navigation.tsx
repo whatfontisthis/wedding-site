@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { type Language } from "@/config/site";
+import { type Language } from "@/constants/site";
 import { Menu, X, Home, MapPin, Images, BookOpen } from "lucide-react";
 
 type NavigationProps = {
@@ -19,9 +19,9 @@ export default function Navigation({
 
   const navItems = [
     { href: "/", label: "홈", page: "home", icon: Home },
-    { href: "/venue", label: "오시는 길", page: "venue", icon: MapPin },
-    { href: "/gallery", label: "갤러리", page: "gallery", icon: Images },
-    { href: "/guestbook", label: "방명록", page: "guestbook", icon: BookOpen },
+    { href: "/venue", label: "안내", page: "venue", icon: MapPin },
+    { href: "/gallery", label: "사진", page: "gallery", icon: Images },
+    { href: "/guestbook", label: "축하", page: "guestbook", icon: BookOpen },
   ];
 
   const toggleMenu = () => {
@@ -42,8 +42,8 @@ export default function Navigation({
 
       {/* Navigation Menu Panel */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm">
-          <div className="fixed top-0 left-0 h-full w-64 bg-white/10 backdrop-blur-md border-r border-white/20">
+        <div className="fixed inset-0 z-40 bg-black/60">
+          <div className="fixed top-0 left-0 h-full w-64 bg-white/25 backdrop-blur-md border-r border-white/30">
             <div className="pt-20 px-6">
               <nav className="space-y-4">
                 {navItems.map((item) => {
