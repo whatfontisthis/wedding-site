@@ -29,7 +29,7 @@ export default function GuestbookPage() {
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-24 pb-16">
+        <main className="pt-12 pb-16">
           <div className="mx-auto max-w-2xl px-6">
             <div className="text-center mb-12">
               <h1 className="text-4xl font-light text-foreground mb-4">방명록</h1>

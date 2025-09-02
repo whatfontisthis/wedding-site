@@ -33,10 +33,16 @@ export default function Navigation({
     setIsMenuOpen(false);
   };
 
+  // 갤러리 페이지에서는 햄버거 버튼을 다른 위치에 배치
+  const isGalleryPage = currentPage === "gallery";
+  const hamburgerButtonClass = isGalleryPage 
+    ? "fixed z-10 top-6 left-6" // 갤러리 페이지에서는 왼쪽 상단, 낮은 z-index
+    : "fixed z-50 md:top-6 md:left-6 bottom-6 right-6"; // 다른 페이지에서는 기존 위치
+
   return (
     <>
       {/* Hamburger Menu Button - Responsive positioning */}
-      <div className="fixed z-50 md:top-6 md:left-6 bottom-6 right-6">
+      <div className={hamburgerButtonClass}>
         <button
           onClick={toggleMenu}
           className="text-white bg-black/30 hover:bg-black/50 transition-colors p-3 rounded-full backdrop-blur-sm shadow-lg border border-white/20"
@@ -48,7 +54,7 @@ export default function Navigation({
       {/* Navigation Menu Panel */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-black/60"
+          className={`fixed inset-0 ${isGalleryPage ? 'z-10' : 'z-50'} bg-black/60`}
           onClick={toggleMenu}
         >
           <div 

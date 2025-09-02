@@ -20,7 +20,7 @@ export default function VenuePage() {
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-6 pb-16">
+        <main className="pt-12 pb-16">
           <div className="mx-auto max-w-7xl px-6">
             
             {/* Header Section */}
@@ -33,7 +33,7 @@ export default function VenuePage() {
               
               {/* 예식장 위치 Section */}
               <section className="venue-info">
-                <div className="venue-info__wrap bg-white p-4 md:p-5 rounded-lg shadow-sm border">
+                <div className="venue-info__wrap bg-white p-4 md:p-5 rounded-lg border border-gray-300">
                   <div className="flex flex-col gap-4">
                     <h2 className="venue-info__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>예식장 위치</h2>
                     <div className="w-full">
@@ -55,7 +55,7 @@ export default function VenuePage() {
 
               {/* 주차 Section */}
               <section className="parking">
-                <div className="parking__wrap bg-white p-4 md:p-5 rounded-lg shadow-sm border">
+                <div className="parking__wrap bg-white p-4 md:p-5 rounded-lg border border-gray-300">
                   <div className="flex flex-col gap-4">
                     <h2 className="parking__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>주차</h2>
                     <div className="w-full">
@@ -70,7 +70,7 @@ export default function VenuePage() {
 
               {/* 오시는 길 Section */}
               <section className="directions">
-                <div className="directions__wrap bg-white p-4 md:p-5 rounded-lg shadow-sm border">
+                <div className="directions__wrap bg-white p-4 md:p-5 rounded-lg border border-gray-300">
                   <div className="flex flex-col gap-4">
                     <h2 className="directions__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>오시는 길</h2>
                     <div className="w-full">
