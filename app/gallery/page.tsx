@@ -148,6 +148,20 @@ export default function GalleryPage() {
           </div>
         </main>
       </PageTransition>
+      
+      {/* Copyright Footer */}
+      <footer className="bg-gray-50 py-3">
+        <div className="max-w-4xl mx-auto text-center">
+          <p 
+            className="text-gray-600 text-xs font-extralight" 
+            style={{ fontFamily: 'sans-serif' }}
+          >
+            <a href="mailto:woobin.dev@gmail.com">
+              Designed & Developed by Woobin Lee © 2025
+            </a>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

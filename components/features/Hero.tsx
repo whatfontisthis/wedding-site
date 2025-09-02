@@ -190,19 +190,19 @@ export default function Hero({
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           <div className="space-y-2 mt-8">
-            <p className="font-semibold text-xl text-foreground leading-tight" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+            <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
               신랑 이우빈 & 신부 김지민
             </p>
             <p className="text-lg leading-relaxed font-light" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
               2025.10.19 SUN 3:30PM
             </p>
-            <p className="text-base text-muted-foreground leading-ㄴ font-light" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
+            <p className="text-base text-muted-foreground leading-snug font-light" style={{fontFamily: 'Verdana, sans-serif'}}>
             더채플앳논현 5층 라메르홀
             <br/>서울시 강남구 논현로 549
             </p>
             
             {/* 오시는길 바로가기 버튼 */}
-            <div className="mt-3 mb-6">
+            <div className="mt-4 mb-6">
               <a
                 href="/venue"
                 className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[999] relative"
@@ -224,16 +224,16 @@ export default function Hero({
              <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
                마음을 담아</p>
              
-              <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
+              <p className="text-base leading-relaxed font-light" style={{fontFamily: 'Verdana, sans-serif'}}>
                저희 인생의 <strong>가장 소중한 순간</strong>을 함께해 <br/>주셔서 진심으로 감사합니다.
               </p>
               
-              <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
+              <p className="text-base leading-relaxed font-light" style={{fontFamily: 'Verdana'}}>
               앞으로도 변함없는 <strong>사랑과 믿음</strong>으로 아름다운 <br/>가정을 이루어 나가겠습니다.
               </p>
 
             {/* 축하글 버튼 */}
-            <div className="mt-3 mb-6">
+            <div className="mt-4 mb-6">
               <a
                 href="/guestbook"
                 className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[999] relative"
@@ -257,12 +257,12 @@ export default function Hero({
             <p className="font-semibold text-xl text-foreground leading-tight" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
               정중한 안내
             </p>
-            <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
+            <p className="text-base leading-relaxed font-light" style={{fontFamily: 'Verdana, sans-serif'}}>
             참석이 어려우신 분들은 마음만으로도 충분히 감사합니다. <br/>
             부득이한 경우 아래 계좌로 축하를 전해주세요.
             </p>
             
-            <p className="text-base text-muted-foreground font-light leading-relaxed" style={{fontFamily: 'sans-serif'}}>
+            <p className="text-base text-muted-foreground font-light leading-relaxed" style={{fontFamily: 'Verdana, sans-serif'}}>
             화환은 정중히 사양하오니 너른 양해 부탁드립니다.
             </p>
             </div>
@@ -276,7 +276,7 @@ export default function Hero({
                   <div className="text-center">
                     <p>아버지 이문주</p>
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">국민은행 4022-40-287731</span>
+                      <span className="text-sm text-gray-600">국민 4022-40-287731</span>
                       <button
                         onClick={() => copyToClipboard('402240287731', 'groom-father')}
                         className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
@@ -295,7 +295,7 @@ export default function Hero({
                   <div className="text-center">
                     <p>어머니 정옥희</p>
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">국민은행 5333-02-01322113</span>
+                      <span className="text-sm text-gray-600">국민 5333-02-01322113</span>
                       <button
                         onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
                         className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
@@ -314,7 +314,7 @@ export default function Hero({
                   <div className="text-center">
                     <p>신랑 이우빈</p>
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">국민은행 2518-01-04122936</span>
+                      <span className="text-sm text-gray-600">국민 2518-01-04122936</span>
                       <button
                         onClick={() => copyToClipboard('25180104122936', 'groom')}
                         className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
@@ -341,7 +341,7 @@ export default function Hero({
                   <div className="text-center">
                     <p>아버지 김홍근</p>
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">씨티은행 138-50015-244</span>
+                      <span className="text-sm text-gray-600">씨티 138-50015-244</span>
                       <button
                         onClick={() => copyToClipboard('13850015244', 'bride-father')}
                         className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
@@ -360,7 +360,7 @@ export default function Hero({
                   <div className="text-center">
                     <p>신부 김지민</p>
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">기업은행 935-011868-01-016</span>
+                      <span className="text-sm text-gray-600">기업 935-011868-01-016</span>
                       <button
                         onClick={() => copyToClipboard('93501186801016', 'bride')}
                         className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
