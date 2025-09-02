@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, MessageSquare, PenTool} from "lucide-react";
+import { MapPin, MessageSquare, PenTool, Copy, Check } from "lucide-react";
 
 type HeroProps = {
   namesLine: string;
@@ -19,6 +19,7 @@ export default function Hero({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
 
   const heroImages = [
     {
@@ -69,12 +70,78 @@ export default function Hero({
     setMounted(true);
   }, []);
 
+  const copyToClipboard = async (accountNumber: string, accountId: string) => {
+    try {
+      // 최신 브라우저의 Clipboard API 사용
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(accountNumber);
+        setCopiedAccount(accountId);
+        setTimeout(() => setCopiedAccount(null), 2000);
+        return;
+      }
+      
+      // 폴백: 구식 방법 사용
+      const textArea = document.createElement('textarea');
+      textArea.value = accountNumber;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      if (successful) {
+        setCopiedAccount(accountId);
+        setTimeout(() => setCopiedAccount(null), 2000);
+      } else {
+        console.error('복사 실패: execCommand가 지원되지 않습니다.');
+      }
+    } catch (err) {
+      console.error('복사 실패:', err);
+      // 최후의 수단: 사용자에게 수동 복사 안내
+      if (window.confirm(`계좌번호를 복사하지 못했습니다.\n${accountNumber}\n\n확인을 누르면 계좌번호가 선택됩니다.`)) {
+        // 간단한 알림만 표시
+      }
+    }
+  };
+
   return (
     <>
       <style jsx>{`
         @media (min-width: 768px) {
           img {
             object-position: var(--desktop-position) !important;
+          }
+        }
+        
+        /* PC에서 버튼 클릭 보장 */
+        button, a, [role="button"] {
+          pointer-events: auto !important;
+          cursor: pointer !important;
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          -moz-user-select: none !important;
+          -ms-user-select: none !important;
+          position: relative !important;
+          z-index: 999 !important;
+        }
+        
+        /* 터치 이벤트 보장 */
+        @media (hover: hover) {
+          button:hover, a:hover, [role="button"]:hover {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+          }
+        }
+        
+        /* 모바일 터치 최적화 */
+        @media (hover: none) {
+          button, a, [role="button"] {
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            touch-action: manipulation !important;
           }
         }
       `}</style>
@@ -138,8 +205,8 @@ export default function Hero({
             <div className="mt-3 mb-6">
               <a
                 href="/venue"
-                className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium "
-                style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}
+                className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[999] relative"
+                style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
                 <MapPin size={16} />
                 오시는길
@@ -169,8 +236,8 @@ export default function Hero({
             <div className="mt-3 mb-6">
               <a
                 href="/guestbook"
-                className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium "
-                style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}
+                className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[999] relative"
+                style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
                 <PenTool size={16} />
                 방명록 남기기
@@ -197,11 +264,125 @@ export default function Hero({
             <p className="text-base text-muted-foreground font-light leading-relaxed" style={{fontFamily: 'sans-serif'}}>
             화환은 정중히 사양하오니 너른 양해 부탁드립니다.
             </p>
+            </div>
             
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <div className="bg-gray-0 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
+                <p className="text-base font-medium mb-5" >
+                  신랑 측
+                </p>
+                <div className="text-base font-semi-bold space-y-5">
+                  <div className="text-center">
+                    <p>아버지 이문주</p>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm text-gray-600">국민은행 4022-40-287731</span>
+                      <button
+                        onClick={() => copyToClipboard('402240287731', 'groom-father')}
+                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
+                        title="계좌번호 복사"
+                        style={{ pointerEvents: 'auto' }}
+                      >
+                        {copiedAccount === 'groom-father' ? (
+                          <Check size={14} className="text-green-600" />
+                        ) : (
+                          <Copy size={14} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <p>어머니 정옥희</p>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm text-gray-600">국민은행 5333-02-01322113</span>
+                      <button
+                        onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
+                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
+                        title="계좌번호 복사"
+                        style={{ pointerEvents: 'auto' }}
+                      >
+                        {copiedAccount === 'groom-mother' ? (
+                          <Check size={14} className="text-green-600" />
+                        ) : (
+                          <Copy size={14} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <p>신랑 이우빈</p>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm text-gray-600">국민은행 2518-01-04122936</span>
+                      <button
+                        onClick={() => copyToClipboard('25180104122936', 'groom')}
+                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
+                        title="계좌번호 복사"
+                        style={{ pointerEvents: 'auto' }}
+                      >
+                        {copiedAccount === 'groom' ? (
+                          <Check size={14} className="text-green-600" />
+                        ) : (
+                          <Copy size={14} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gray-0 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
+                <p className="text-base font-medium mb-5">
+                  신부 측
+                </p>
+                
+                <div className="text-base space-y-5">
+                  <div className="text-center">
+                    <p>아버지 김홍근</p>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm text-gray-600">씨티은행 138-50015-244</span>
+                      <button
+                        onClick={() => copyToClipboard('13850015244', 'bride-father')}
+                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
+                        title="계좌번호 복사"
+                        style={{ pointerEvents: 'auto' }}
+                      >
+                        {copiedAccount === 'bride-father' ? (
+                          <Check size={14} className="text-green-600" />
+                        ) : (
+                          <Copy size={14} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <p>신부 김지민</p>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-sm text-gray-600">기업은행 935-011868-01-016</span>
+                      <button
+                        onClick={() => copyToClipboard('93501186801016', 'bride')}
+                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
+                        title="계좌번호 복사"
+                        style={{ pointerEvents: 'auto' }}
+                      >
+                        {copiedAccount === 'bride' ? (
+                          <Check size={14} className="text-green-600" />
+                        ) : (
+                          <Copy size={14} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
-                 </div>
          </section>
+
+
+
 
       {/* Copyright Footer */}
       <footer className="bg-gray-50 py-3">

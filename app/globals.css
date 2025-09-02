@@ -207,6 +207,15 @@
       opacity 2.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* 버튼과 링크는 클릭 가능하게 보장 */
+  button,
+  a[href],
+  [role="button"],
+  [onclick] {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: "210 Yeonaesidae", sans-serif;
@@ -238,7 +247,14 @@
   /* Smooth hover effects */
   a,
   button {
-    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+      color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto !important;
+    cursor: pointer !important;
   }
 
   /* Smooth section animations */
