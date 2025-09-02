@@ -252,6 +252,7 @@ export default function Hero({
 <section className="bg-white py-12 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
+          
           <div className="space-y-2 mt-8">
             <p className="font-semibold text-xl text-foreground leading-tight" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
               정중한 안내
@@ -259,16 +260,16 @@ export default function Hero({
             <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
             참석이 어려우신 분들은 마음만으로도 충분히 감사합니다. <br/>
             부득이한 경우 아래 계좌로 축하를 전해주세요.
-
             </p>
+            
             <p className="text-base text-muted-foreground font-light leading-relaxed" style={{fontFamily: 'sans-serif'}}>
             화환은 정중히 사양하오니 너른 양해 부탁드립니다.
             </p>
             </div>
             
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="bg-gray-0 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
-                <p className="text-base font-medium mb-5" >
+              <div className="bg-gray-100 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
+                <p className="text-base font-medium mb-3" >
                   신랑 측
                 </p>
                 <div className="text-base font-semi-bold space-y-5">
@@ -331,8 +332,8 @@ export default function Hero({
                 </div>
               </div>
               
-              <div className="bg-gray-0 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
-                <p className="text-base font-medium mb-5">
+              <div className="bg-gray-100 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
+                <p className="text-base font-medium mb-3">
                   신부 측
                 </p>
                 
