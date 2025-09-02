@@ -188,14 +188,14 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
 
               {/* 구분선 및 장식 요소 */}
               <div className="flex items-center justify-center py-8">
-                <div className="flex items-center space-x-4">
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-16"></div>
-                  <div className="flex space-x-2">
-                    <span className="text-2xl">💕</span>
-                    <span className="text-2xl">🎉</span>
-                    <span className="text-2xl">💝</span>
+                <div className="flex items-center space-x-6">
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-20"></div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                    <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
                   </div>
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-16"></div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-20"></div>
                 </div>
               </div>
 
