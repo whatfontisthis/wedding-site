@@ -28,6 +28,8 @@ export interface SettingsConfig {
 }
 
 export interface SiteLanguageConfig {
+  metaTitle: string;
+  metaDescription: string;
   hero: HeroConfig;
   schedule: string[];
   venue: VenueConfig;
@@ -48,4 +50,5 @@ export interface FontConfig {
 
 export interface FontsConfig {
   yeonaesidae: FontConfig;
+  orpheum: FontConfig;
 }

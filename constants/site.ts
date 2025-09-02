@@ -2,23 +2,25 @@ import type { SiteConfig, FontsConfig } from '../types/site';
 
 export const languages: SiteConfig = {
   ko: {
+    metaTitle: "WOOBIN & JIMIN 결혼식",
+    metaDescription: "2025년 10월 19일, 더채플앳논현에서 열리는 WOOBin과 JIMIN의 결혼식에 초대합니다.",
     //히어로 섹션
     hero: {
-      namesLine: "신랑 이우빈 & 신부 김지민",
-      dateLocationLine: "2025.10.19(일) 3시30분 예식",
+      namesLine: "이우빈 & 김지민", 
+      dateLocationLine: "2025.10.19 Sun 3:30PM",
       ctaHref: "#rsvp",
       ctaLabel: "참석 여부 알리기",
     },
 
     //일정 섹션
     schedule: [
-      "오후 3:30 — 예식",
+      "오후 3:30",
     ],
 
     //예식장 정보
     venue: {
       title: "예식장",
-      nameAddress: "더채플앳논현 라메르홀 ",
+      nameAddress: "더채플앳논현 라메르홀",
       mapHref: "https://maps.google.com/?q=%EB%8D%94%EC%B1%84%ED%94%8C%EC%95%B3%EB%85%BC%ED%98%84",
       mapLabel: "지도에서 보기",
     },
@@ -38,6 +40,8 @@ export const languages: SiteConfig = {
   },
 
   en: {
+    metaTitle: "Woobin Lee & Jimin Kim Wedding",
+    metaDescription: "Invitation to Woobin and Jimin's wedding ceremony on October 19, 2025 at The Chapel at Nonhyeon.",
     hero: {
       namesLine: "Woobin Lee & Jimin Kim",
       dateLocationLine: "Oct 19, 2025 (Sun) · 3:30 PM ",
@@ -74,10 +78,12 @@ export const fonts: FontsConfig = {
     name: "210 Yeonaesidae",
     family: "210 Yeonaesidae",
   },
-  
+  orpheum: {
+    name: "Orpheum",
+    family: "Orpheum, serif",
+  },
 } as const;
 
 export const siteConfig = languages.ko; // Default to Korean
 
 export { type Language, type Font } from '../types/site';
-export type SiteConfig = typeof siteConfig;
