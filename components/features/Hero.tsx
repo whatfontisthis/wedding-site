@@ -126,11 +126,12 @@ export default function Hero({
             <p className="font-semibold text-xl text-foreground leading-tight" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
               신랑 이우빈 & 신부 김지민
             </p>
-            <p className="text-base leading-relaxed" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
+            <p className="text-lg leading-relaxed font-light" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
               2025.10.19 SUN 3:30PM
             </p>
-            <p className="text-base text-muted-foreground leading-tight" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
-            더채플앳논현 5층 라메르홀 
+            <p className="text-base text-muted-foreground leading-ㄴ font-light" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
+            더채플앳논현 5층 라메르홀
+            <br/>서울시 강남구 논현로 549
             </p>
             
             {/* 오시는길 바로가기 버튼 */}
@@ -153,15 +154,15 @@ export default function Hero({
          <div className="max-w-4xl mx-auto text-center space-y-8">
            {/* 여기에 원하는 콘텐츠를 추가하세요 */}
            <div className="space-y-2 mt-8">
-             <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+             <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
                마음을 담아</p>
              
-              <p className="text-base  leading-relaxed" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
-               저희 인생의 가장 소중한 순간을 함께해 <br/>주셔서 진심으로 감사합니다. 
+              <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
+               저희 인생의 <strong>가장 소중한 순간</strong>을 함께해 <br/>주셔서 진심으로 감사합니다.
               </p>
               
-              <p className="text-base  leading-relaxed" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
-              앞으로도 변함없는 사랑과 믿음으로 아름다운 <br/>가정을 이루어 나가겠습니다.
+              <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
+              앞으로도 변함없는 <strong>사랑과 믿음</strong>으로 아름다운 <br/>가정을 이루어 나가겠습니다.
               </p>
 
             {/* 축하글 버튼 */}
@@ -185,16 +186,16 @@ export default function Hero({
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           <div className="space-y-2 mt-8">
-            <p className="font-semibold text-xl text-foreground leading-tight" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+            <p className="font-semibold text-xl text-foreground leading-tight" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
               정중한 안내
             </p>
-            <p className="text-base leading-relaxed" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
+            <p className="text-base leading-relaxed font-light" style={{fontFamily: 'sans-serif'}}>
             참석이 어려우신 분들은 마음만으로도 충분히 감사합니다. <br/>
             부득이한 경우 아래 계좌로 축하를 전해주세요.
 
             </p>
-            <p className="text-base text-muted-foreground leading-relaxed" style={{fontFamily: 'Apple SD Gothic Neo, sans-serif'}}>
-              화환으로 축하해 주시려는 마음에 깊이 감사드리나<br/> 정중히 양해 부탁드립니다.
+            <p className="text-base text-muted-foreground font-light leading-relaxed" style={{fontFamily: 'sans-serif'}}>
+            화환은 정중히 사양하오니 너른 양해 부탁드립니다.
             </p>
             
 
@@ -203,14 +204,18 @@ export default function Hero({
          </section>
 
       {/* Copyright Footer */}
-      <footer className="bg-gray-50 py-4">
+      <footer className="bg-gray-50 py-3">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-600 text-xs font-extralight" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
-            Designed & Developed by Woobin Lee © 2025
+          <p 
+            className="text-gray-600 text-xs font-extralight" 
+            style={{ fontFamily: 'sans-serif' }}
+          >
+            <a href="mailto:woobin.dev@gmail.com">
+              Designed & Developed by Woobin Lee © 2025
+            </a>
           </p>
         </div>
       </footer>
-
       </>
     );
   }
