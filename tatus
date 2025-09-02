@@ -1,0 +1,3 @@
+[33m1970401[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Fix UI interactions and improve navigation UX
+[33m182d9f7[m sep-02 11:00 pm
+[33mdbf7600[m[33m ([m[1;31morigin/main[m[33m)[m Simplify GitHub Pages configuration - remove basePath for easier deployment
