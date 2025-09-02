@@ -101,7 +101,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                     <input
                       type="text"
                       name="name"
-                      placeholder="성함을 적어주세요"
+                      placeholder="성함"
                       className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring z-[100]"
                       style={{
                         pointerEvents: 'auto',
@@ -112,7 +112,8 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                         display: 'block',
                         outline: 'none',
                         border: '1px solid #d1d5db',
-                        background: 'white'
+                        background: 'white',
+                        fontFamily: 'Helvetica'
                       }}
                       onMouseDown={(e) => e.stopPropagation()}
                       onTouchStart={(e) => e.stopPropagation()}
@@ -128,7 +129,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                   <div>
                     <textarea
                       name="message"
-                      placeholder="따뜻한 축하 메시지를 남겨주세요"
+                      placeholder="따뜻한 축하 메시지"
                       className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring z-[100]"
                       style={{
                         pointerEvents: 'auto',
@@ -139,7 +140,8 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                         display: 'block',
                         outline: 'none',
                         border: '1px solid #d1d5db',
-                        background: 'white'
+                        background: 'white',
+                        fontFamily: 'Helvetica'
                       }}
                       onMouseDown={(e) => e.stopPropagation()}
                       onTouchStart={(e) => e.stopPropagation()}
@@ -165,7 +167,8 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                       display: 'block',
                       outline: 'none',
                       border: 'none',
-                      background: 'black'
+                      background: 'black',
+                      fontFamily: 'Apple SD Gothic Neo'
                     }}
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
@@ -183,6 +186,19 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                 </form>
               </Section>
 
+              {/* 구분선 및 장식 요소 */}
+              <div className="flex items-center justify-center py-8">
+                <div className="flex items-center space-x-4">
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-16"></div>
+                  <div className="flex space-x-2">
+                    <span className="text-2xl">💕</span>
+                    <span className="text-2xl">🎉</span>
+                    <span className="text-2xl">💝</span>
+                  </div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-16"></div>
+                </div>
+              </div>
+
               <Section title="받은 축하 메시지">
                 <div className="space-y-4">
                   {messages.length === 0 ? (
@@ -194,9 +210,9 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                       <div key={msg.id} className="border border-input rounded-lg p-4 bg-muted/20">
                         <div className="flex justify-between items-start mb-3">
                           <span className="font-medium text-foreground">{msg.name}</span>
-                          <span className="text-xs text-muted-foreground">{formatDateTime(msg.createdAt)}</span>
+                          <span className="text-xs text-muted-foreground" style={{ fontFamily: 'Helvetica' }}>{formatDateTime(msg.createdAt)}</span>
                         </div>
-                        <p className="text-foreground text-sm whitespace-pre-wrap text-center leading-relaxed">
+                        <p className="text-foreground text-sm whitespace-pre-wrap text-center leading-relaxed" style={{ fontFamily: 'Helvetica' }}>
                           {msg.message}
                         </p>
                       </div>
