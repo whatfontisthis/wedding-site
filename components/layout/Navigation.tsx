@@ -33,11 +33,8 @@ export default function Navigation({
     setIsMenuOpen(false);
   };
 
-  // 갤러리 페이지에서는 햄버거 버튼을 다른 위치에 배치
-  const isGalleryPage = currentPage === "gallery";
-  const hamburgerButtonClass = isGalleryPage 
-    ? "fixed z-10 top-6 left-6" // 갤러리 페이지에서는 왼쪽 상단, 낮은 z-index
-    : "fixed z-50 md:top-6 md:left-6 bottom-6 right-6"; // 다른 페이지에서는 기존 위치
+  // 모든 페이지에서 햄버거 버튼을 우측 하단으로 고정
+  const hamburgerButtonClass = "fixed z-50 bottom-6 right-6";
 
   return (
     <>
@@ -54,25 +51,25 @@ export default function Navigation({
       {/* Navigation Menu Panel */}
       {isMenuOpen && (
         <div 
-          className={`fixed inset-0 ${isGalleryPage ? 'z-10' : 'z-50'} bg-black/60`}
+          className="fixed inset-0 z-40 bg-black/60"
           onClick={toggleMenu}
         >
           <div 
-            className="fixed top-0 right-0 md:left-0 md:right-auto h-full w-64 bg-white/25 backdrop-blur-md border-l md:border-r md:border-l-0 border-white/30"
+            className="fixed bottom-20 right-6 w-48 bg-white/25 backdrop-blur-md rounded-lg border border-white/30 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
-            <div className="absolute top-4 right-4 md:right-4 md:left-auto">
+            <div className="absolute top-3 right-3">
               <button
                 onClick={toggleMenu}
-                className="text-white/70 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+                className="text-white/70 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
               >
-                <X size={20} />
+                <X size={16} />
               </button>
             </div>
             
-            <div className="pt-20 px-6">
-              <nav className="space-y-4">
+            <div className="pt-10 pb-4 px-4">
+              <nav className="space-y-2">
                 {navItems.map((item) => {
                   const IconComponent = item.icon;
                   return (
@@ -80,12 +77,12 @@ export default function Navigation({
                       key={item.href}
                       href={item.href}
                       onClick={handleNavItemClick}
-                      className={`flex items-center gap-3 text-white/90 hover:text-white transition-colors p-3 rounded-lg hover:bg-white/10 ${
+                      className={`flex items-center gap-2 text-white/90 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 text-sm ${
                         currentPage === item.page ? "text-white bg-white/20" : ""
                       }`}
                     >
-                      <IconComponent size={20} />
-                      <span className="text-sm font-light">{item.label}</span>
+                      <IconComponent size={16} />
+                      <span className="font-light">{item.label}</span>
                     </Link>
                   );
                 })}

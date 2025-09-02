@@ -7,7 +7,7 @@ export const languages: SiteConfig = {
     //히어로 섹션
     hero: {
       namesLine: "이우빈 & 김지민", 
-      dateLocationLine: "2025.10.19 Sun 3:30PM",
+      dateLocationLine: "2025 . 10 . 19",
       ctaHref: "#rsvp",
       ctaLabel: "참석 여부 알리기",
     },

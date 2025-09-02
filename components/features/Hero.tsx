@@ -117,6 +117,43 @@ export default function Hero({
           }
         }
         
+        /* Hero 이미지 영역만 텍스트 선택 비활성화 */
+        .hero-image-overlay,
+        .hero-image-overlay *,
+        .hero-content,
+        .hero-content * {
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          -moz-user-select: none !important;
+          -ms-user-select: none !important;
+        }
+        
+        /* 텍스트 섹션은 기본적으로 선택 가능 - 더 강력한 선택자 */
+        section.hero-text-section,
+        section.hero-text-section *,
+        section.hero-text-section p,
+        section.hero-text-section span,
+        section.hero-text-section h1,
+        section.hero-text-section h2,
+        section.hero-text-section h3,
+        section.hero-text-section div,
+        section.hero-text-section strong,
+        .hero-text-section .max-w-4xl,
+        .hero-text-section .max-w-4xl *,
+        .hero-text-section .space-y-8,
+        .hero-text-section .space-y-8 *,
+        .hero-text-section .space-y-2,
+        .hero-text-section .space-y-2 *,
+        .hero-text-section .bg-gray-100,
+        .hero-text-section .bg-gray-100 * {
+          user-select: text !important;
+          -webkit-user-select: text !important;
+          -moz-user-select: text !important;
+          -ms-user-select: text !important;
+          cursor: text !important;
+          pointer-events: auto !important;
+        }
+        
         /* PC에서 버튼 클릭 보장 */
         button, a, [role="button"] {
           pointer-events: auto !important;
@@ -127,6 +164,21 @@ export default function Hero({
           -ms-user-select: none !important;
           position: relative !important;
           z-index: 999 !important;
+        }
+        
+        /* 버튼과 링크는 여전히 클릭 가능하되 텍스트 선택 비활성화 */
+        section.hero-text-section button,
+        section.hero-text-section a,
+        .hero-text-section button,
+        .hero-text-section a,
+        .hero-text-section .bg-gray-100 button,
+        .hero-text-section .bg-gray-100 a {
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          -moz-user-select: none !important;
+          -ms-user-select: none !important;
+          cursor: pointer !important;
+          pointer-events: auto !important;
         }
         
         /* 터치 이벤트 보장 */
@@ -145,7 +197,7 @@ export default function Hero({
           }
         }
       `}</style>
-      <section className="relative min-h-screen overflow-hidden bg-black">
+      <section className="hero-image-overlay relative min-h-screen overflow-hidden bg-black">
       {/* Background Images */}
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         {heroImages.map((image, index) => (
@@ -169,7 +221,7 @@ export default function Hero({
       </div>
 
       {/* Text Content - Top Center */}
-      <div className={`absolute top-10 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
+      <div className={`hero-content absolute top-10 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
         mounted && imageLoaded ? "opacity-100" : "opacity-0"
       }`}>
         <div className="space-y-0">
@@ -186,7 +238,7 @@ export default function Hero({
       </section>
 
       {/* Text Content Section */}
-      <section className="bg-white py-12 px-6">
+      <section className="hero-text-section bg-white py-12 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           <div className="space-y-2 mt-8">
@@ -217,7 +269,7 @@ export default function Hero({
         </section>
 
        {/* Gray Background Section */}
-       <section className="bg-gray-100 py-12 px-6">
+       <section className="hero-text-section bg-gray-100 py-12 px-6">
          <div className="max-w-4xl mx-auto text-center space-y-8">
            {/* 여기에 원하는 콘텐츠를 추가하세요 */}
            <div className="space-y-2 mt-8">
@@ -249,7 +301,7 @@ export default function Hero({
      
 
 {/* Text Content Section */}
-<section className="bg-white py-12 px-6">
+<section className="hero-text-section bg-white py-12 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           

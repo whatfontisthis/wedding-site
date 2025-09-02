@@ -11,7 +11,35 @@ export default function VenuePage() {
   const siteData = languages[currentLanguage];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="venue-page min-h-screen bg-background text-foreground">
+      <style jsx>{`
+        .venue-page * {
+          transition: none !important;
+        }
+        .venue-page p,
+        .venue-page h1,
+        .venue-page h2,
+        .venue-page span,
+        .venue-page div {
+          user-select: text !important;
+          cursor: text !important;
+          pointer-events: auto !important;
+          position: relative !important;
+          z-index: 10 !important;
+        }
+        .venue-page a {
+          user-select: text !important;
+          cursor: pointer !important;
+          pointer-events: auto !important;
+          position: relative !important;
+          z-index: 10 !important;
+        }
+        .venue-page img {
+          user-select: none !important;
+          pointer-events: auto !important;
+        }
+        /* Navigation 버튼 스타일 - 우측 하단 고정으로 인해 불필요 */
+      `}</style>
       <Navigation
         currentPage="venue"
         currentLanguage={currentLanguage}

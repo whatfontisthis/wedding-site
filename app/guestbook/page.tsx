@@ -20,7 +20,32 @@ export default function GuestbookPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="guestbook-page min-h-screen bg-background text-foreground">
+      <style jsx>{`
+        .guestbook-page * {
+          transition: none !important;
+        }
+        .guestbook-page input,
+        .guestbook-page textarea,
+        .guestbook-page button {
+          pointer-events: auto !important;
+          cursor: pointer !important;
+          user-select: text !important;
+          position: relative !important;
+          z-index: 100 !important;
+          transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+        }
+        .guestbook-page input:focus,
+        .guestbook-page textarea:focus {
+          user-select: text !important;
+          cursor: text !important;
+        }
+        .guestbook-page button {
+          user-select: none !important;
+          cursor: pointer !important;
+        }
+        /* Navigation 버튼 스타일 - 우측 하단 고정으로 인해 불필요 */
+      `}</style>
       <Navigation
         currentPage="guestbook"
         currentLanguage={currentLanguage}
@@ -45,7 +70,26 @@ export default function GuestbookPage() {
                       placeholder="성함을 입력해주세요"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                      className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring z-[100]"
+                      style={{
+                        pointerEvents: 'auto',
+                        cursor: 'text',
+                        userSelect: 'text',
+                        position: 'relative',
+                        zIndex: 100,
+                        display: 'block',
+                        outline: 'none',
+                        border: '1px solid #d1d5db',
+                        background: 'white'
+                      }}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        (e.target as HTMLInputElement).focus();
+                        console.log('Name input clicked');
+                      }}
                       required
                     />
                   </div>
@@ -54,14 +98,52 @@ export default function GuestbookPage() {
                       placeholder="축하 메시지를 입력해주세요..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                      className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring z-[100]"
+                      style={{
+                        pointerEvents: 'auto',
+                        cursor: 'text',
+                        userSelect: 'text',
+                        position: 'relative',
+                        zIndex: 100,
+                        display: 'block',
+                        outline: 'none',
+                        border: '1px solid #d1d5db',
+                        background: 'white'
+                      }}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        (e.target as HTMLTextAreaElement).focus();
+                        console.log('Textarea clicked');
+                      }}
                       rows={4}
                       required
                     />
                   </div>
                   <button 
                     type="submit"
-                    className="w-full bg-foreground text-background py-3 rounded-lg hover:opacity-90 transition font-medium"
+                    className="w-full bg-foreground text-background py-3 rounded-lg hover:opacity-90 transition font-medium z-[100]"
+                    style={{
+                      pointerEvents: 'auto',
+                      cursor: 'pointer',
+                      userSelect: 'none',
+                      position: 'relative',
+                      zIndex: 100,
+                      display: 'block',
+                      outline: 'none',
+                      border: 'none',
+                      background: 'black'
+                    }}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log('Submit button clicked');
+                      handleSubmit(e);
+                    }}
                   >
                     메시지 남기기
                   </button>
