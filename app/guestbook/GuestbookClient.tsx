@@ -91,7 +91,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
           <div className="mx-auto max-w-2xl px-6">
             <div className="text-center mb-12">
               <h1 className="text-4xl font-light text-foreground mb-4">방명록</h1>
-              <p className="text-muted-foreground">소중한 축하와 응원의 말씀을 남겨주세요.</p>
+              <p className="text-muted-foreground" >소중한 축하와 응원의 말씀을 남겨주세요.</p>
             </div>
 
             <div className="space-y-8">
@@ -196,7 +196,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                           <span className="font-medium text-foreground">{msg.name}</span>
                           <span className="text-xs text-muted-foreground">{formatDateTime(msg.createdAt)}</span>
                         </div>
-                        <p className="text-foreground text-sm whitespace-pre-wrap text-left leading-relaxed">
+                        <p className="text-foreground text-sm whitespace-pre-wrap text-center leading-relaxed">
                           {msg.message}
                         </p>
                       </div>
