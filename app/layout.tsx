@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { languages } from "@/constants/site";
+import { AudioProvider } from "@/contexts/AudioContext";
 
 export const metadata: Metadata = {
   title: languages.ko.metaTitle,
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className="antialiased">
-        {children}
+        <AudioProvider>
+          {children}
+        </AudioProvider>
       </body>
     </html>
   );

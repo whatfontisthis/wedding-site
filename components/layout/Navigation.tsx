@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { type Language } from "@/constants/site";
-import { Menu, X, Home, MapPin, Images, BookOpen } from "lucide-react";
+import { useAudio } from "@/contexts/AudioContext";
+import { Menu, X, Home, MapPin, Images, BookOpen, Music, VolumeX } from "lucide-react";
 
 type NavigationProps = {
   currentPage: string;
@@ -16,7 +17,11 @@ export default function Navigation({
   currentLanguage,
   onLanguageChange,
 }: NavigationProps) {
+  // Keep parameters for future use
+  void currentLanguage;
+  void onLanguageChange;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isPlaying, toggleMusic } = useAudio();
 
   const navItems = [
     { href: "/", label: "홈", page: "home", icon: Home },
@@ -40,12 +45,18 @@ export default function Navigation({
     <>
       {/* Hamburger Menu Button - Responsive positioning */}
       <div className={hamburgerButtonClass}>
-        <button
-          onClick={toggleMenu}
-          className="text-white bg-black/30 hover:bg-black/50 transition-colors p-3 rounded-full backdrop-blur-sm shadow-lg border border-white/20"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="relative">
+          <button
+            onClick={toggleMenu}
+            className="text-white bg-black/30 hover:bg-black/50 transition-colors p-3 rounded-full backdrop-blur-sm shadow-lg border border-white/20"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+          {/* Music playing indicator */}
+          {isPlaying && (
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+          )}
+        </div>
       </div>
 
       {/* Navigation Menu Panel */}
@@ -86,6 +97,17 @@ export default function Navigation({
                     </Link>
                   );
                 })}
+                
+                {/* Music Toggle */}
+                <div className="border-t border-white/20 pt-2 mt-2">
+                  <button
+                    onClick={toggleMusic}
+                    className="flex items-center gap-2 text-white/90 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 text-sm w-full"
+                  >
+                    {isPlaying ? <Music size={16} /> : <VolumeX size={16} />}
+                    <span className="font-light">{isPlaying ? "음악 끄기" : "음악 켜기"}</span>
+                  </button>
+                </div>
               </nav>
             </div>
           </div>
