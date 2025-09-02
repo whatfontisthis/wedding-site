@@ -53,7 +53,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
   };
 
   return (
-    <div className="guestbook-page min-h-screen bg-background text-foreground">
+    <div className="guestbook-page min-h-screen bg-background text-foreground flex flex-col">
       <style jsx>{`
         .guestbook-page * {
           transition: none !important;
@@ -87,7 +87,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-12 pb-16">
+        <main className="pt-12 pb-16 flex-grow">
           <div className="mx-auto max-w-2xl px-6">
             <div className="text-center mb-12">
               <h1 className="text-4xl font-light text-foreground mb-4">방명록</h1>
@@ -186,16 +186,10 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                 </form>
               </Section>
 
-              {/* 구분선 및 장식 요소 */}
+              {/* 구분선 */}
               <div className="flex items-center justify-center py-8">
-                <div className="flex items-center space-x-6">
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-20"></div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                    <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                  </div>
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-20"></div>
+                <div className="flex items-center space-x-2">
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-90"></div>
                 </div>
               </div>
 

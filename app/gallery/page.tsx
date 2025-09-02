@@ -272,7 +272,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navigation
         currentPage="gallery"
         currentLanguage={currentLanguage}
@@ -281,7 +281,7 @@ export default function GalleryPage() {
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-16 pb-16">
+        <main className="pt-16 pb-16 flex-grow">
           {selectedCategory ? renderAlbumView() : renderCategorySelection()}
         </main>
       </PageTransition>

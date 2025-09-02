@@ -11,7 +11,7 @@ export default function Home() {
   const siteData = languages[currentLanguage];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navigation
         currentPage="home"
         currentLanguage={currentLanguage}
@@ -19,12 +19,14 @@ export default function Home() {
       />
 
       {/* Hero Section - Full Screen */}
-      <Hero
-        namesLine={siteData.hero.namesLine}
-        dateLocationLine={siteData.hero.dateLocationLine}
-        ctaHref={siteData.hero.ctaHref}
-        ctaLabel={siteData.hero.ctaLabel}
-      />
+      <div className="flex-grow">
+        <Hero
+          namesLine={siteData.hero.namesLine}
+          dateLocationLine={siteData.hero.dateLocationLine}
+          ctaHref={siteData.hero.ctaHref}
+          ctaLabel={siteData.hero.ctaLabel}
+        />
+      </div>
     </div>
   );
 }

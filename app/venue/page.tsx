@@ -11,7 +11,7 @@ export default function VenuePage() {
   const siteData = languages[currentLanguage];
 
   return (
-    <div className="venue-page min-h-screen bg-background text-foreground">
+    <div className="venue-page min-h-screen bg-background text-foreground flex flex-col">
       <style jsx>{`
         .venue-page * {
           transition: none !important;
@@ -48,7 +48,7 @@ export default function VenuePage() {
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-12 pb-16">
+        <main className="pt-12 pb-16 flex-grow">
           <div className="mx-auto max-w-7xl px-6">
             
             {/* Header Section */}
