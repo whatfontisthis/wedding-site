@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, MessageSquare, PenTool, Copy, Check } from "lucide-react";
+import { MapPin, MessageSquare, PenTool, Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
 
 type HeroProps = {
   namesLine: string;
@@ -20,6 +20,21 @@ export default function Hero({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
+  const [expandedAccounts, setExpandedAccounts] = useState<Record<string, boolean>>({
+    'groom-father': false,
+    'groom-mother': false,
+    'groom': false,
+    'bride-father': false,
+    'bride-mother': false,
+    'bride': false,
+  });
+
+  const toggleAccount = (accountId: string) => {
+    setExpandedAccounts(prev => ({
+      ...prev,
+      [accountId]: !prev[accountId]
+    }));
+  };
 
   const heroImages = [
     {
@@ -320,111 +335,219 @@ export default function Hero({
             </div>
             
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="bg-gray-100 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
-                <p className="text-base font-medium mb-3" >
-                  신랑 측
-                </p>
-                <div className="text-base font-semi-bold space-y-5">
-                  <div className="text-center">
-                    <p>아버지 이문주</p>
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">국민 4022-40-287731</span>
-                      <button
-                        onClick={() => copyToClipboard('402240287731', 'groom-father')}
-                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
-                        title="계좌번호 복사"
-                        style={{ pointerEvents: 'auto' }}
-                      >
-                        {copiedAccount === 'groom-father' ? (
-                          <Check size={14} className="text-green-600" />
-                        ) : (
-                          <Copy size={14} className="text-gray-500" />
-                        )}
-                      </button>
+              {/* 신랑 측 */}
+              <div className="bg-gray-100 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
+                <div className="p-4 pb-2">
+                  <p className="text-base font-medium mb-4 text-center">신랑 측</p>
+                  
+                  {/* 아버지 이문주 */}
+                  <div className="mb-3">
+                    <button
+                      onClick={() => toggleAccount('groom-father')}
+                      className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      <span className="text-base">아버지 이문주</span>
+                      <div className="absolute right-3">
+                        {expandedAccounts['groom-father'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    
+                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      expandedAccounts['groom-father'] ? 'max-h-20 opacity-100 pb-2' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-3 pt-2">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm text-gray-600">국민 4022-40-287731</span>
+                          <button
+                            onClick={() => copyToClipboard('402240287731', 'groom-father')}
+                            className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[999] relative"
+                            title="계좌번호 복사"
+                            style={{ pointerEvents: 'auto' }}
+                          >
+                            {copiedAccount === 'groom-father' ? (
+                              <Check size={14} className="text-green-600" />
+                            ) : (
+                              <Copy size={14} className="text-gray-500" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="text-center">
-                    <p>어머니 정옥희</p>
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">국민 5333-02-01322113</span>
-                      <button
-                        onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
-                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
-                        title="계좌번호 복사"
-                        style={{ pointerEvents: 'auto' }}
-                      >
-                        {copiedAccount === 'groom-mother' ? (
-                          <Check size={14} className="text-green-600" />
-                        ) : (
-                          <Copy size={14} className="text-gray-500" />
-                        )}
-                      </button>
+                  {/* 어머니 정옥희 */}
+                  <div className="mb-3">
+                    <button
+                      onClick={() => toggleAccount('groom-mother')}
+                      className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      <span className="text-base">어머니 정옥희</span>
+                      <div className="absolute right-3">
+                        {expandedAccounts['groom-mother'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    
+                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      expandedAccounts['groom-mother'] ? 'max-h-20 opacity-100 pb-2' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-3 pt-2">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm text-gray-600">국민 5333-02-01322113</span>
+                          <button
+                            onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
+                            className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[999] relative"
+                            title="계좌번호 복사"
+                            style={{ pointerEvents: 'auto' }}
+                          >
+                            {copiedAccount === 'groom-mother' ? (
+                              <Check size={14} className="text-green-600" />
+                            ) : (
+                              <Copy size={14} className="text-gray-500" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="text-center">
-                    <p>신랑 이우빈</p>
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">국민 2518-01-04122936</span>
-                      <button
-                        onClick={() => copyToClipboard('25180104122936', 'groom')}
-                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
-                        title="계좌번호 복사"
-                        style={{ pointerEvents: 'auto' }}
-                      >
-                        {copiedAccount === 'groom' ? (
-                          <Check size={14} className="text-green-600" />
-                        ) : (
-                          <Copy size={14} className="text-gray-500" />
-                        )}
-                      </button>
+                  {/* 신랑 이우빈 */}
+                  <div className="mb-2">
+                    <button
+                      onClick={() => toggleAccount('groom')}
+                      className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      <span className="text-base">신랑 이우빈</span>
+                      <div className="absolute right-3">
+                        {expandedAccounts['groom'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    
+                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      expandedAccounts['groom'] ? 'max-h-20 opacity-100 pb-2' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-3 pt-2">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm text-gray-600">국민 2518-01-04122936</span>
+                          <button
+                            onClick={() => copyToClipboard('25180104122936', 'groom')}
+                            className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[999] relative"
+                            title="계좌번호 복사"
+                            style={{ pointerEvents: 'auto' }}
+                          >
+                            {copiedAccount === 'groom' ? (
+                              <Check size={14} className="text-green-600" />
+                            ) : (
+                              <Copy size={14} className="text-gray-500" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-gray-100 p-4 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
-                <p className="text-base font-medium mb-3">
-                  신부 측
-                </p>
-                
-                <div className="text-base space-y-5">
-                  <div className="text-center">
-                    <p>아버지 김홍근</p>
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">씨티 138-50015-244</span>
-                      <button
-                        onClick={() => copyToClipboard('13850015244', 'bride-father')}
-                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
-                        title="계좌번호 복사"
-                        style={{ pointerEvents: 'auto' }}
-                      >
-                        {copiedAccount === 'bride-father' ? (
-                          <Check size={14} className="text-green-600" />
-                        ) : (
-                          <Copy size={14} className="text-gray-500" />
-                        )}
-                      </button>
+              {/* 신부 측 */}
+              <div className="bg-gray-100 rounded-lg font-light" style={{fontFamily: 'sans-serif'}}>
+                <div className="p-4 pb-2">
+                  <p className="text-base font-medium mb-4 text-center">신부 측</p>
+                  
+                  {/* 아버지 김홍근 */}
+                  <div className="mb-3">
+                    <button
+                      onClick={() => toggleAccount('bride-father')}
+                      className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      <span className="text-base">아버지 김홍근</span>
+                      <div className="absolute right-3">
+                        {expandedAccounts['bride-father'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    
+                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      expandedAccounts['bride-father'] ? 'max-h-20 opacity-100 pb-2' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-3 pt-2">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm text-gray-600">씨티 138-50015-244</span>
+                          <button
+                            onClick={() => copyToClipboard('13850015244', 'bride-father')}
+                            className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[999] relative"
+                            title="계좌번호 복사"
+                            style={{ pointerEvents: 'auto' }}
+                          >
+                            {copiedAccount === 'bride-father' ? (
+                              <Check size={14} className="text-green-600" />
+                            ) : (
+                              <Copy size={14} className="text-gray-500" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="text-center">
-                    <p>신부 김지민</p>
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-sm text-gray-600">기업 935-011868-01-016</span>
-                      <button
-                        onClick={() => copyToClipboard('93501186801016', 'bride')}
-                        className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer z-[999] relative"
-                        title="계좌번호 복사"
-                        style={{ pointerEvents: 'auto' }}
-                      >
-                        {copiedAccount === 'bride' ? (
-                          <Check size={14} className="text-green-600" />
-                        ) : (
-                          <Copy size={14} className="text-gray-500" />
-                        )}
-                      </button>
+                  {/* 어머니 정혜원 */}
+                  <div className="mb-3">
+                    <button
+                      onClick={() => toggleAccount('bride-mother')}
+                      className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      <span className="text-base">어머니 정혜원</span>
+                      <div className="absolute right-3">
+                        {expandedAccounts['bride-mother'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    
+                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      expandedAccounts['bride-mother'] ? 'max-h-20 opacity-100 pb-2' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-3 pt-2">
+                        <div className="text-center">
+                          <p className="text-sm text-gray-500">계좌번호 비공개</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* 신부 김지민 */}
+                  <div className="mb-2">
+                    <button
+                      onClick={() => toggleAccount('bride')}
+                      className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      <span className="text-base">신부 김지민</span>
+                      <div className="absolute right-3">
+                        {expandedAccounts['bride'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    
+                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      expandedAccounts['bride'] ? 'max-h-20 opacity-100 pb-2' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-3 pt-2">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm text-gray-600">기업 935-011868-01-016</span>
+                          <button
+                            onClick={() => copyToClipboard('93501186801016', 'bride')}
+                            className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[999] relative"
+                            title="계좌번호 복사"
+                            style={{ pointerEvents: 'auto' }}
+                          >
+                            {copiedAccount === 'bride' ? (
+                              <Check size={14} className="text-green-600" />
+                            ) : (
+                              <Copy size={14} className="text-gray-500" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -438,7 +561,7 @@ export default function Hero({
 
 
       {/* Copyright Footer */}
-      <footer className="bg-gray-50 py-3">
+      <footer className="bg-gray-100 py-2">
         <div className="max-w-4xl mx-auto text-center">
           <p 
             className="text-gray-600 text-xs font-extralight" 

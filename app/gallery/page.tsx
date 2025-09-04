@@ -265,7 +265,7 @@ export default function GalleryPage() {
       </PageTransition>
       
       {/* Copyright Footer */}
-      <footer className="bg-gray-50 py-3">
+      <footer className="bg-gray-100 py-3">
         <div className="max-w-4xl mx-auto text-center">
           <p 
             className="text-gray-600 text-xs font-extralight" 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { type Language } from "@/constants/site";
 import { useAudio } from "@/contexts/AudioContext";
-import { Menu, X, Home, MapPin, Images, BookOpen, Music, VolumeX } from "lucide-react";
+import { Menu, X, Home, MapPin, Images, BookOpen, Music, VolumeX, Volume2 } from "lucide-react";
 
 type NavigationProps = {
   currentPage: string;
@@ -21,7 +21,7 @@ export default function Navigation({
   void currentLanguage;
   void onLanguageChange;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isPlaying, toggleMusic } = useAudio();
+  const { isPlaying, volume, toggleMusic, setVolume } = useAudio();
 
   const navItems = [
     { href: "/", label: "홈", page: "home", icon: Home },
@@ -98,8 +98,9 @@ export default function Navigation({
                   );
                 })}
                 
-                {/* Music Toggle */}
-                <div className="border-t border-white/20 pt-2 mt-2">
+                {/* Music Controls */}
+                <div className="border-t border-white/20 pt-3 mt-2 space-y-3">
+                  {/* Music Toggle */}
                   <button
                     onClick={toggleMusic}
                     className="flex items-center gap-2 text-white/90 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 text-sm w-full"
@@ -107,6 +108,29 @@ export default function Navigation({
                     {isPlaying ? <Music size={16} /> : <VolumeX size={16} />}
                     <span className="font-light">{isPlaying ? "음악 끄기" : "음악 켜기"}</span>
                   </button>
+                  
+                  {/* Volume Slider */}
+                  {isPlaying && (
+                    <div className="px-2">
+                      <div className="flex items-center gap-2 text-white/90 text-sm">
+                        <Volume2 size={14} />
+                        <div className="flex-1">
+                          <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={volume}
+                            onChange={(e) => setVolume(Number(e.target.value))}
+                            className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                            style={{
+                              background: `linear-gradient(to right, #ffffff ${volume}%, rgba(255,255,255,0.2) ${volume}%)`
+                            }}
+                          />
+                        </div>
+                        <span className="text-xs font-light min-w-[2rem] text-right">{volume}%</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </nav>
             </div>
