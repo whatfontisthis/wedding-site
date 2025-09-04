@@ -259,13 +259,13 @@ export default function GalleryPage() {
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-16 pb-16 flex-grow">
+        <main className="pt-16 pb-16 flex-1 min-h-0">
           {selectedCategory ? renderAlbumView() : renderCategorySelection()}
         </main>
       </PageTransition>
       
       {/* Copyright Footer */}
-      <footer className="bg-gray-100 py-3">
+      <footer className="bg-gray-100 py-3 mt-auto">
         <div className="max-w-4xl mx-auto text-center">
           <p 
             className="text-gray-600 text-xs font-extralight" 

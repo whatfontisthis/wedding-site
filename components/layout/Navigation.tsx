@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { type Language } from "@/constants/site";
 import { useAudio } from "@/contexts/AudioContext";
@@ -38,8 +38,22 @@ export default function Navigation({
     setIsMenuOpen(false);
   };
 
+  // 메뉴가 열려있을 때 스크롤 방지
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // 컴포넌트 언마운트 시 정리
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   // 모든 페이지에서 햄버거 버튼을 우측 하단으로 고정
-  const hamburgerButtonClass = "fixed z-50 bottom-6 right-6";
+  const hamburgerButtonClass = "fixed z-[10000] bottom-6 right-6";
 
   return (
     <>
@@ -62,11 +76,12 @@ export default function Navigation({
       {/* Navigation Menu Panel */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/60"
+          className="fixed inset-0 z-[9999] bg-black/60 min-h-screen w-full"
           onClick={toggleMenu}
+          style={{ height: '100vh', minHeight: '100vh' }}
         >
           <div 
-            className="fixed bottom-20 right-6 w-48 bg-white/25 backdrop-blur-md rounded-lg border border-white/30 shadow-xl"
+            className="fixed bottom-20 right-6 w-48 bg-white/25 backdrop-blur-md rounded-lg border border-white/30 shadow-xl z-[9999]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
