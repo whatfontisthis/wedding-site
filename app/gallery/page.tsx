@@ -5,7 +5,7 @@ import { languages, type Language } from "@/constants/site";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import Section from "@/components/ui/Section";
-import GalleryGrid from "@/components/features/GalleryGrid";
+import GallerySlider from "@/components/features/GalleryGrid";
 import { ArrowLeft, Camera, Aperture, Heart } from "lucide-react";
 
 export default function GalleryPage() {
@@ -249,55 +249,32 @@ export default function GalleryPage() {
     );
   };
 
-  // 모든 사진을 섹션별로 표시하는 뷰
-  const renderAllPhotos = () => {
+  // 모든 이미지를 하나의 배열로 통합
+  const getAllImages = () => {
     const categories = ['pre-wedding', 'studio', 'casual'];
+    const allImages: GalleryImage[] = [];
+    
+    categories.forEach(category => {
+      const images = getImagesFromFolder(category);
+      allImages.push(...images);
+    });
+    
+    return allImages;
+  };
+
+  const renderGallerySlider = () => {
+    const allImages = getAllImages();
     
     return (
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 h-full">
         {/* 페이지 제목 */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-light text-foreground mb-4" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>갤러리</h1>
-          <p className="font-noto text-lg text-gray-800 font-light">저희의 소중한 순간들을 담았습니다. </p>
+          <h1 className="text-3xl font-light text-foreground mb-4" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>갤러리</h1>
+          <p className="font-noto text-lg text-gray-800 font-light">저희의 소중한 순간들을 담았습니다.</p>
         </div>
 
-        {/* 각 카테고리별 사진들 */}
-        {categories.map((category) => {
-          const config = galleryConfig[category as keyof typeof galleryConfig];
-          const images = getImagesFromFolder(category);
-          
-          if (images.length === 0) return null;
-          
-          return (
-            <div key={category} className="mb-16">
-              {/* 섹션 제목 */}
-                             <div className="text-center mb-4">
-                 <div className="mb-1">
-                   <h2 className="text-xl sm:text-2xl font-normal text-gray-400" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
-                     {config.title}
-                   </h2>
-                 </div>
-                 <p className="text-gray-600 font-noto">
-                   {config.description}
-                 </p>
-               </div>
-              
-              {/* 사진 그리드 */}
-              <GalleryGrid 
-                images={images} 
-                category={category} 
-                aspectRatio="square" 
-              />
-            </div>
-          );
-        })}
-        
-        {/* 안내 텍스트 */}
-        <div className="text-center mt-12 mb-8">
-          <p className="text-muted-foreground text-sm font-noto">
-            사진을 클릭하면 크게 볼 수 있습니다
-          </p>
-        </div>
+        {/* 갤러리 슬라이더 */}
+        <GallerySlider images={allImages} />
       </div>
     );
   };
@@ -310,12 +287,12 @@ export default function GalleryPage() {
         onLanguageChange={setCurrentLanguage}
       />
 
-      {/* Main Content */}
-      <PageTransition>
-        <main className="pt-12 pb-16 flex-1 min-h-0">
-          {renderAllPhotos()}
-        </main>
-      </PageTransition>
+             {/* Main Content */}
+       <PageTransition>
+         <main className="pt-12 pb-6 flex-1 min-h-0">
+           {renderGallerySlider()}
+         </main>
+       </PageTransition>
       
       {/* Copyright Footer */}
       <footer className="bg-gray-100 py-3 mt-auto">
