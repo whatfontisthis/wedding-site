@@ -26,7 +26,7 @@ export default function Navigation({
   const navItems = [
     { href: "/", label: "홈", page: "home", icon: Home },
     { href: "/venue", label: "오시는길", page: "venue", icon: MapPin },
-    { href: "/gallery", label: "겔러리", page: "gallery", icon: Images },
+    { href: "/gallery", label: "갤러리", page: "gallery", icon: Images },
     { href: "/guestbook", label: "방명록", page: "guestbook", icon: BookOpen },
   ];
 

@@ -240,10 +240,10 @@ export default function Hero({
         mounted && imageLoaded ? "opacity-100" : "opacity-0"
       }`}>
         <div className="space-y-0">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white drop-shadow-xl leading-relaxed tracking-wide">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white/80 drop-shadow-xl leading-relaxed tracking-wide">
             {namesLine}
           </h1>
-          <p className="text-white text-xl font-light tracking-wide drop-shadow-lg leading-tight font-spoqa">
+          <p className="text-white/80 text-xl font-light tracking-wide drop-shadow-lg leading-tight font-spoqa">
             {dateLocationLine}
           </p>
         </div>
@@ -257,10 +257,10 @@ export default function Hero({
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           <div className="space-y-2 mt-8">
-            <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+            <p className="font-semibold text-xl text-foreground/80 leading-relaxed" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
               신랑 이우빈 & 신부 김지민
             </p>
-            <p className="text-lg leading-relaxed font-light font-spoqa">
+            <p className="text-lg leading-relaxed font-light font-spoqa text-foreground/80">
               2025.10.19 SUN 3:30PM
             </p>
             <p className="text-lg text-muted-foreground leading-snug font-light font-noto"  >

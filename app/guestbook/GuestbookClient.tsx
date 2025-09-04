@@ -89,14 +89,15 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
       <PageTransition>
         <main className="pt-12 pb-16 flex-grow">
           <div className="mx-auto max-w-2xl px-6">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl font-light text-foreground mb-4">방명록</h1>
-              <p className="text-muted-foreground" >소중한 축하와 응원의 말씀을 남겨주세요.</p>
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-light text-foreground mb-4">방명록</h1>
+              <p className="font-noto text-lg text-gray-800 font-light" >소중한 축하와 응원의 말씀을 남겨주세요.</p>
             </div>
 
             <div className="space-y-8">
-              <Section title="축하 메시지 전하기">
-                <form action={handleSubmit} className="space-y-4">
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <Section title="축하 메시지 전하기">
+                  <form action={handleSubmit} className="space-y-4">
                   <div>
                     <input
                       type="text"
@@ -183,14 +184,8 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                       {submitMessage}
                     </div>
                   )}
-                </form>
-              </Section>
-
-              {/* 구분선 */}
-              <div className="flex items-center justify-center py-8">
-                <div className="flex items-center space-x-2">
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-90"></div>
-                </div>
+                  </form>
+                </Section>
               </div>
 
               <Section title="받은 축하 메시지">

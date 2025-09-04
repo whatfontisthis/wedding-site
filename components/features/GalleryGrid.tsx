@@ -229,7 +229,7 @@ export default function GallerySlider({ images }: GallerySliderProps) {
       <div className="flex-shrink-0">
         <div 
           ref={thumbnailContainerRef}
-          className="flex justify-start items-center space-x-2 overflow-x-auto pb-2 px-4 scrollbar-hide"
+          className="flex justify-start items-center space-x-2 overflow-x-auto px-4 scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {images.map((image, index) => (
