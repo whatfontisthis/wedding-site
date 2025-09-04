@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 type GalleryImage = {
   src: string;
@@ -16,7 +17,54 @@ type GalleryGridProps = {
 };
 
 export default function GalleryGrid({ images, category, aspectRatio = "square" }: GalleryGridProps) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(null);
+
+  const openSlider = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
+  const closeSlider = () => {
+    setCurrentImageIndex(null);
+  };
+
+  const goToPrevious = () => {
+    if (currentImageIndex !== null) {
+      setCurrentImageIndex(currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1);
+    }
+  };
+
+  const goToNext = () => {
+    if (currentImageIndex !== null) {
+      setCurrentImageIndex(currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1);
+    }
+  };
+
+  // 키보드 네비게이션
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (currentImageIndex === null) return;
+      
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          goToPrevious();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          goToNext();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          closeSlider();
+          break;
+      }
+    };
+
+    if (currentImageIndex !== null) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [currentImageIndex, images.length]);
 
   const aspectClasses = {
     square: "aspect-square",
@@ -30,22 +78,13 @@ export default function GalleryGrid({ images, category, aspectRatio = "square" }
     landscape: "grid-cols-1 md:grid-cols-2",
   };
 
-  const openLightbox = (src: string) => {
-    setSelectedImage(src);
-  };
-
-  const closeLightbox = () => {
-    setSelectedImage(null);
-  };
-
   return (
     <>
       <div className={`grid gap-4 ${gridCols[aspectRatio]}`}>
         {images.map((image, index) => (
           <div
             key={index}
-            className={`${aspectClasses[aspectRatio]} relative overflow-hidden rounded-lg cursor-pointer group`}
-            onClick={() => openLightbox(image.src)}
+            className={`${aspectClasses[aspectRatio]} relative overflow-hidden rounded-lg group`}
           >
             <Image
               src={image.src}
@@ -60,29 +99,6 @@ export default function GalleryGrid({ images, category, aspectRatio = "square" }
         ))}
       </div>
 
-      {/* Lightbox */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={closeLightbox}
-        >
-          <div className="relative max-w-4xl max-h-full">
-            <Image
-              src={selectedImage}
-              alt="Selected image"
-              width={1200}
-              height={800}
-              className="max-w-full max-h-full object-contain"
-            />
-            <button
-              onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition-colors duration-300"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
 }

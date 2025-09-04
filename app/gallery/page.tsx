@@ -10,27 +10,26 @@ import { ArrowLeft, Camera, Aperture, Heart } from "lucide-react";
 
 export default function GalleryPage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // Gallery folder configuration
   const galleryConfig = {
     'pre-wedding': {
       title: '프리웨딩',
-      description: '특별한 순간을 담은 사진들',
+      description: '',
       icon: Heart,
       color: 'bg-pink-50 hover:bg-pink-100',
       order: 1
     },
     'studio': {
       title: '스튜디오',
-      description: '전문적인 스튜디오 촬영',
+      description: '',
       icon: Aperture,
       color: 'bg-blue-50 hover:bg-blue-100',
       order: 2
     },
     'casual': {
       title: '일상',
-      description: '소중한 일상의 모습들',
+      description: '',
       icon: Camera,
       color: 'bg-green-50 hover:bg-green-100',
       order: 3
@@ -133,9 +132,10 @@ export default function GalleryPage() {
   // Category selection view
   const renderCategorySelection = () => (
     <div className="mx-auto max-w-4xl px-4 sm:px-6">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl sm:text-4xl font-light text-foreground mb-4" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>갤러리</h1>
-        <p className="text-muted-foreground text-sm sm:text-base">보고 싶은 앨범을 선택해주세요</p>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-light text-foreground mb-4" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>갤러리</h1>
+
+        <p className="font-noto text-lg text-gray-800 font-light">저희의 소중한 순간들을 담았습니다. </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -249,6 +249,59 @@ export default function GalleryPage() {
     );
   };
 
+  // 모든 사진을 섹션별로 표시하는 뷰
+  const renderAllPhotos = () => {
+    const categories = ['pre-wedding', 'studio', 'casual'];
+    
+    return (
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* 페이지 제목 */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl sm:text-4xl font-light text-foreground mb-4" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>갤러리</h1>
+          <p className="font-noto text-lg text-gray-800 font-light">저희의 소중한 순간들을 담았습니다. </p>
+        </div>
+
+        {/* 각 카테고리별 사진들 */}
+        {categories.map((category) => {
+          const config = galleryConfig[category as keyof typeof galleryConfig];
+          const images = getImagesFromFolder(category);
+          
+          if (images.length === 0) return null;
+          
+          return (
+            <div key={category} className="mb-16">
+              {/* 섹션 제목 */}
+                             <div className="text-center mb-4">
+                 <div className="mb-1">
+                   <h2 className="text-xl sm:text-2xl font-normal text-gray-400" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+                     {config.title}
+                   </h2>
+                 </div>
+                 <p className="text-gray-600 font-noto">
+                   {config.description}
+                 </p>
+               </div>
+              
+              {/* 사진 그리드 */}
+              <GalleryGrid 
+                images={images} 
+                category={category} 
+                aspectRatio="square" 
+              />
+            </div>
+          );
+        })}
+        
+        {/* 안내 텍스트 */}
+        <div className="text-center mt-12 mb-8">
+          <p className="text-muted-foreground text-sm font-noto">
+            사진을 클릭하면 크게 볼 수 있습니다
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navigation
@@ -259,8 +312,8 @@ export default function GalleryPage() {
 
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-16 pb-16 flex-1 min-h-0">
-          {selectedCategory ? renderAlbumView() : renderCategorySelection()}
+        <main className="pt-12 pb-16 flex-1 min-h-0">
+          {renderAllPhotos()}
         </main>
       </PageTransition>
       

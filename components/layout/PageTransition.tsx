@@ -20,7 +20,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     // Longer delay to ensure smooth transition with slower animations
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 400);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, [mounted]);
