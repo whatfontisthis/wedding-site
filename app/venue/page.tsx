@@ -1,10 +1,6 @@
-"use client";
-
-import { useState } from "react";
-import { languages, type Language } from "@/constants/site";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
-import { MapPin, Clock, Car, Train, Bus, Building2 } from "lucide-react";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,55 +14,24 @@ export const metadata: Metadata = {
 };
 
 export default function VenuePage() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
-  const siteData = languages[currentLanguage];
 
   return (
-    <div className="venue-page min-h-screen bg-background text-foreground flex flex-col">
-      <style jsx>{`
-        .venue-page * {
-          transition: none !important;
-        }
-        .venue-page p,
-        .venue-page h1,
-        .venue-page h2,
-        .venue-page span,
-        .venue-page div {
-          user-select: text !important;
-          cursor: text !important;
-          pointer-events: auto !important;
-          position: relative !important;
-          z-index: 10 !important;
-        }
-        .venue-page a {
-          user-select: text !important;
-          cursor: pointer !important;
-          pointer-events: auto !important;
-          position: relative !important;
-          z-index: 10 !important;
-        }
-        .venue-page img {
-          user-select: none !important;
-          pointer-events: auto !important;
-        }
-        /* Navigation 버튼 스타일 - 우측 하단 고정으로 인해 불필요 */
-      `}</style>
+    <div className="venue-page min-h-screen bg-background text-foreground flex flex-col [&_*]:transition-none [&_p]:select-text [&_h1]:select-text [&_h2]:select-text [&_span]:select-text [&_div]:select-text [&_a]:cursor-pointer [&_img]:select-none">
       <Navigation
         currentPage="venue"
-        currentLanguage={currentLanguage}
-        onLanguageChange={setCurrentLanguage}
+        currentLanguage="ko"
       />
 
       {/* 상단 네비게이션 - Absolute 위치 */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
-          <a href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
+          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/venue" className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">오시는 길</a>
+          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">오시는 길</span>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
+          <Link href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</a>
+          <Link href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</Link>
         </nav>
       </div>
 

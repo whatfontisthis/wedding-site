@@ -3,8 +3,7 @@ import "./globals.css";
 import { languages } from "@/constants/site";
 import { AudioProvider } from "@/contexts/AudioContext";
 
-export const metadata: Metadata = {
-  title: {
+export const metadata: Metadata = {  title: {
     default: languages.ko.metaTitle,
     template: `%s | ${languages.ko.metaTitle}`,
   },
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
     "wedding invitation",
     "Korean wedding"
   ],
-  authors: [{ name: "Woobin Lee", email: "woobin.dev@gmail.com" }],
+  authors: [{ name: "Woobin Lee" }],
   creator: "Woobin Lee",
   publisher: "Woobin Lee",
   robots: {

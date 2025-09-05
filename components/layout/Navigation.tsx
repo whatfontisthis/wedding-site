@@ -9,7 +9,7 @@ import { Menu, X, Home, MapPin, Images, BookOpen, Music, VolumeX, Volume2 } from
 type NavigationProps = {
   currentPage: string;
   currentLanguage: Language;
-  onLanguageChange: (language: Language) => void;
+  onLanguageChange?: (language: Language) => void;
 };
 
 export default function Navigation({

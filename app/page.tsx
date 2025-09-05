@@ -47,8 +47,6 @@ export default function Home() {
         <Hero
           namesLine={siteData.hero.namesLine}
           dateLocationLine={siteData.hero.dateLocationLine}
-          ctaHref={siteData.hero.ctaHref}
-          ctaLabel={siteData.hero.ctaLabel}
         />
       </div>
 

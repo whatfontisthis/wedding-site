@@ -1,20 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, MessageSquare, PenTool, Copy, Check, ChevronDown, ChevronUp, Images } from "lucide-react";
+import { MapPin, Copy, Check, ChevronDown, ChevronUp, Images } from "lucide-react";
+import Link from "next/link";
 
 type HeroProps = {
   namesLine: string;
   dateLocationLine: string;
-  ctaHref: string;
-  ctaLabel: string;
 };
 
 export default function Hero({
   namesLine,
   dateLocationLine,
-  ctaHref,
-  ctaLabel,
 }: HeroProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -240,13 +237,13 @@ export default function Hero({
         mounted && imageLoaded ? "opacity-100" : "opacity-0"
       }`}>
         <nav className="flex items-center text-white font-serif whitespace-nowrap">
-          <a href="/" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
-          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
-          <a href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</a>
-          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
-          <a href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
-          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
-          <a href="/guestbook" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</a>
+          <span className="text-white font-medium text-sm sm:text-base font-light drop-shadow-lg">홈</span>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <Link href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</Link>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <Link href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</Link>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <Link href="/guestbook" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</Link>
         </nav>
       </div>
 
@@ -384,8 +381,7 @@ export default function Hero({
                 className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[100] relative"
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
-                <PenTool size={16} />
-                방명록 남기기
+                ✏️ 방명록 남기기
               </a>
             </div>             
            </div>

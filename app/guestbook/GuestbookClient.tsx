@@ -6,6 +6,7 @@ import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import Section from "@/components/ui/Section";
 import { type GuestbookMessage } from "@/lib/notion";
+import Link from "next/link";
 
 interface GuestbookClientProps {
   messages: GuestbookMessage[];
@@ -82,13 +83,13 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
       {/* 상단 네비게이션 - Absolute 위치 */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
-          <a href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
+          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</a>
+          <Link href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
+          <Link href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/guestbook" className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">방명록</a>
+          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">방명록</span>
         </nav>
       </div>
 
