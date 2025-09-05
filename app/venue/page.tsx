@@ -4,7 +4,7 @@ import { useState } from "react";
 import { languages, type Language } from "@/constants/site";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
-import { MapPin, Clock, Car, Train, Bus } from "lucide-react";
+import { MapPin, Clock, Car, Train, Bus, Building2 } from "lucide-react";
 
 export default function VenuePage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
@@ -49,43 +49,42 @@ export default function VenuePage() {
       {/* Main Content */}
       <PageTransition>
         <main className="pt-12 pb-16 flex-grow">
+          {/* Header Section */}
           <div className="mx-auto max-w-7xl px-6">
-            
-            {/* Header Section */}
             <div className="text-center mb-6">
               <h1 className="text-3xl font-medim text-foreground mb-4">오시는길</h1>
             </div>
+          </div>
 
-            {/* Venue Information Sections */}
-            <div className="max-w-2xl mx-auto space-y-6">
-              
-              {/* 예식장 위치 Section */}
-              <section className="venue-info">
-                <div className="venue-info__wrap bg-white p-4 md:p-5 ">
-                  <div className="flex flex-col gap-4">
-                    <h2 className="venue-info__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>예식장 위치</h2>
-                    <div className="w-full">
-                      <div className="space-y-1 text-center font-light" style={{fontFamily: 'Verdana'}}>
-                        <p className="font-noto text-base text-gray-800 font-light">더채플앳논현 5층 라메르홀
-                        <br/>서울시 강남구 논현로 549</p>
-                      </div>
-                      <div className="mt-4 flex justify-center">
-                        <img
-                          src="/chaple_door.jpg"
-                          alt="더채플앳논현 입구"
-                          className="w-5/6 h-auto object-cover rounded-lg"
-                        />
-                      </div>
+          {/* Venue Information Sections */}
+          <div className="space-y-6">
+            
+            {/* 예식장 위치 Section - Full Width Gray */}
+            <section className="venue-info bg-gray-100 py-12">
+              <div className="max-w-2xl mx-auto px-6">
+                <div className="flex flex-col gap-4">
+                  <h2 className="venue-info__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>예식장 위치</h2>
+                  <div className="w-full">
+                    <div className="space-y-1 text-center font-light" style={{fontFamily: 'Verdana'}}>
+                      <p className="font-noto text-base text-gray-800 font-light">더채플앳논현 5층 라메르홀
+                      <br/>서울시 강남구 논현로 549</p>
+                    </div>
+                    <div className="mt-4 flex justify-center mb-6">
+                      <img
+                        src="/chaple_door.jpg"
+                        alt="더채플앳논현 입구"
+                        className="w-5/6 h-auto object-cover"
+                      />
                     </div>
                   </div>
                 </div>
-              </section>
+              </div>
+            </section>
 
-            
-
-              {/* 오시는 길 Section */}
-              <section className="directions">
-                <div className="directions__wrap bg-white p-4 md:p-5 ">
+            {/* 오시는 길 Section */}
+            <section className="directions">
+              <div className="max-w-2xl mx-auto py-8px-6">
+                <div className="directions__wrap bg-white p-4 md:p-5">
                   <div className="flex flex-col gap-4">
                     <h2 className="directions__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>오시는 길</h2>
                     <div className="w-full">
@@ -93,36 +92,33 @@ export default function VenuePage() {
                         <p className="font-noto text-base text-gray-800 font-light">2호선 역삼역 6번 출구 좌측 450m</p>
                         <p className="font-noto text-base text-gray-800 font-light">9호선 언주역 7번 출구 정면 150m</p>
                       </div>
-                      <div className="mt-4 flex justify-center">
+                      <div className="mt-4 flex justify-center mb-6">
                         <img
                           src="/map.png"
                           alt="더채플앳논현 위치 지도"
-                          className="w-full h-auto object-cover rounded-lg border border-gray-300"
+                          className="w-6/7 h-auto object-cover rounded border border-gray-300"
                         />
                       </div>
                     </div>
                   </div>
                 </div>
-              </section>
+              </div>
+            </section>
 
-              {/* 주차 Section */}
-                <section className="parking">
-                <div className="parking__wrap bg-white p-4 md:p-5  border-gray-300">
-                  <div className="flex flex-col gap-4">
-                    <h2 className="parking__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>주차</h2>
-                    <div className="w-full">
-                      <div className="space-y-1 text-center font-light" style={{fontFamily: 'Verdana'}}>
-                        <p className="font-noto text-base text-gray-800 font-light">발렛 파킹 서비스를 제공합니다. </p>
-                        <p className="font-noto text-base text-gray-800 font-light">차량을 맡기시면 편리하게 이용 가능힙니다.</p>
-                      </div>
+            {/* 주차 Section - Full Width Gray */}
+            <section className="parking bg-gray-100 py-6">
+              <div className="max-w-2xl mx-auto px-6">
+                <div className="flex flex-col gap-4">
+                  <h2 className="parking__title text-xl font-medium text-center mt-6" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>주차</h2>
+                  <div className="w-full">
+                    <div className="space-y-1 text-center font-light" style={{fontFamily: 'Verdana'}}>
+                      <p className="font-noto text-base text-gray-800 font-light">발렛 파킹 서비스를 제공하오니,  </p>
+                      <p className="font-noto text-base text-gray-800 font-light mb-6">차량을 맡기시면 편리하게 이용하실 수 있습니다.</p>
                     </div>
                   </div>
                 </div>
-              </section>
-
-
-
-            </div>
+              </div>
+            </section>
 
           </div>
         </main>

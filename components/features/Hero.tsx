@@ -235,16 +235,31 @@ export default function Hero({
         ))}
       </div>
 
+      {/* Top Navigation */}
+      <div className={`absolute top-6 left-1/2 transform -translate-x-1/2 z-20 transition-all duration-3000 ease-in-out ${
+        mounted && imageLoaded ? "opacity-100" : "opacity-0"
+      }`}>
+        <nav className="flex items-center text-white font-serif whitespace-nowrap">
+          <a href="/" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/guestbook" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</a>
+        </nav>
+      </div>
+
       {/* Text Content - Top Center */}
-      <div className={`hero-content absolute top-10 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
+      <div className={`hero-content absolute top-15 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
         mounted && imageLoaded ? "opacity-100" : "opacity-0"
       }`}>
         <div className="space-y-0">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white/80 drop-shadow-xl leading-relaxed tracking-wide">
-            {namesLine}
+          <h1 className="text-2xl sm:text-2xl lg:text-2xl font-light text-white/80 drop-shadow-xl leading-tight ">
+            {namesLine}  {/*이우빈 & 신부*/}
           </h1>
-          <p className="text-white/80 text-xl font-light tracking-wide drop-shadow-lg leading-tight font-spoqa">
-            {dateLocationLine}
+          <p className="text-white/80 text-xl font-light tracking-tight drop-shadow-lg leading-tight font-spoqa">
+            {dateLocationLine}  {/*2025. 10. 19*/}
           </p>
         </div>
       </div>
