@@ -5,6 +5,17 @@ import { languages, type Language } from "@/constants/site";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import { MapPin, Clock, Car, Train, Bus, Building2 } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "오시는길",
+  description: "이우빈 & 김지민 결혼식 장소 안내입니다. 더채플앳논현 5층 라메르홀, 서울시 강남구 논현로 549. 지하철 및 주차 정보를 확인하세요.",
+  openGraph: {
+    title: "오시는길 | 이우빈 & 김지민 결혼식",
+    description: "결혼식 장소: 더채플앳논현 5층 라메르홀, 2025년 10월 19일 오후 3시 30분",
+    images: ["/chaple_door.jpg"],
+  },
+};
 
 export default function VenuePage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
