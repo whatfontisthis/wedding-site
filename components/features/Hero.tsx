@@ -241,11 +241,11 @@ export default function Hero({
       }`}>
         <nav className="flex items-center text-white font-serif whitespace-nowrap">
           <a href="/" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
-          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
           <a href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
-          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
           <a href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
-          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
           <a href="/guestbook" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</a>
         </nav>
       </div>

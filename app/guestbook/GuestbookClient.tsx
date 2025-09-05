@@ -85,12 +85,25 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
         onLanguageChange={setCurrentLanguage}
       />
 
+      {/* 상단 네비게이션 - Absolute 위치 */}
+      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+        <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
+          <a href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
+          <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
+          <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
+          <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/guestbook" className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">방명록</a>
+        </nav>
+      </div>
+
       {/* Main Content */}
       <PageTransition>
-        <main className="pt-12 pb-16 flex-grow">
+        <main className="pb-16 flex-grow">
           <div className="mx-auto max-w-2xl px-6">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-light text-foreground mb-4">방명록</h1>
+            <div className="text-center mb-8 pt-12">
+            
               
             </div>
 
@@ -216,7 +229,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
       </PageTransition>
       
       {/* Copyright Footer */}
-      <footer className="bg-gray-100 py-2">
+      <footer className="bg-gray-100 py-2 mt-auto">
         <div className="max-w-4xl mx-auto text-center">
           <p 
             className="text-gray-600 text-xs font-extralight" 

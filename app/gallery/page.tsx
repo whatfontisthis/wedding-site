@@ -10,6 +10,7 @@ import { ArrowLeft, Camera, Aperture, Heart } from "lucide-react";
 
 export default function GalleryPage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // Gallery folder configuration
   const galleryConfig = {
@@ -262,19 +263,48 @@ export default function GalleryPage() {
     return allImages;
   };
 
-  const renderGallerySlider = () => {
-    const allImages = getAllImages();
-    
+  const renderGallerySections = () => {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 h-full">
-        {/* 페이지 제목 */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-light text-foreground mb-4" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>갤러리</h1>
-          <p className="font-noto text-lg text-gray-800 font-light">저희의 소중한 순간들을 담았습니다.</p>
-        </div>
+      <div>
+        
 
-        {/* 갤러리 슬라이더 */}
-        <GallerySlider images={allImages} />
+        {/* 3개 섹션 - 회색/흰색/회색 배경 */}
+        <div className="space-y-6">
+          {Object.entries(galleryConfig)
+            .sort((a, b) => a[1].order - b[1].order)
+            .map(([folderName, config], index) => {
+              const images = getImagesFromFolder(folderName);
+              const isGraySection = index % 2 === 0; // 0, 2번째는 회색, 1번째는 흰색
+              
+              return (
+                <section key={folderName} className={`${isGraySection ? 'bg-gray-100' : 'bg-white'} py-12`}>
+                  <div className="max-w-6xl mx-auto px-6">
+                    {/* 섹션 헤더 */}
+                    <div className={`text-center mb-6 ${index === 0 ? 'mt-10' : ''}`}>
+                      <h2 className="text-2xl font-light text-foreground" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+                        {config.title}
+                      </h2>
+                    </div>
+
+                    {/* 해당 폴더의 이미지 슬라이더 */}
+                    {images.length > 0 ? (
+                      <div className="bg-white/50 rounded-xl p-6">
+                        <GallerySlider images={images} />
+                      </div>
+                    ) : (
+                      <div className="text-center py-16">
+                        <p className="text-muted-foreground text-lg mb-2">아직 사진이 없습니다</p>
+                        <p className="text-muted-foreground text-sm">
+                          곧 아름다운 사진들로 채워질 예정입니다
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </section>
+              );
+            })
+          }
+        </div>
       </div>
     );
   };
@@ -287,10 +317,23 @@ export default function GalleryPage() {
         onLanguageChange={setCurrentLanguage}
       />
 
+      {/* 상단 네비게이션 - Absolute 위치 */}
+      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+        <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
+          <a href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
+          <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
+          <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/gallery" className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">갤러리</a>
+          <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
+          <a href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</a>
+        </nav>
+      </div>
+
              {/* Main Content */}
        <PageTransition>
-         <main className="pt-12 pb-6 flex-1 min-h-0">
-           {renderGallerySlider()}
+         <main className="pb-6 flex-1 min-h-0">
+           {selectedCategory ? renderAlbumView() : renderGallerySections()}
          </main>
        </PageTransition>
       
