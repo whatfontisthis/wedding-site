@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, MessageSquare, PenTool, Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, MessageSquare, PenTool, Copy, Check, ChevronDown, ChevronUp, Images } from "lucide-react";
 
 type HeroProps = {
   namesLine: string;
@@ -242,7 +242,7 @@ export default function Hero({
         <nav className="flex items-center text-white font-serif whitespace-nowrap">
           <a href="/" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
           <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
-          <a href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
+          <a href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</a>
           <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
           <a href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
           <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">/</span>
@@ -268,7 +268,7 @@ export default function Hero({
       </section>
 
       {/* Text Content Section */}
-      <section className="hero-text-section bg-white py-12 px-6">
+      <section className="hero-text-section bg-gray-100 py-12 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           <div className="space-y-2 mt-8">
@@ -291,12 +291,65 @@ export default function Hero({
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
                 <MapPin size={16} />
-                오시는길
+                오시는 길
               </a>
             </div>
           </div>
         </div>
         </section>
+
+      {/* Text Content Section */}
+      <section className="hero-text-section bg-white py-12 px-6">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          {/* Add your text content here */}
+          
+             {/* Floral Decoration */}
+             <div className="flex justify-center mb-3">
+               <div className="text-black text-lg opacity-90">
+                 <span className="inline-block transform -rotate-6 mr-1">♡</span>
+                 <span className="inline-block mx-1">♥ </span>
+                 <span className="inline-block transform rotate-6 ml-1">♡</span>
+               </div>
+             </div>
+             <div className="space-y-2 mt-8">
+             <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
+              우리의 순간들을 담았습니다.
+             </p>
+             <p className="text-lg leading-relaxed font-light font-noto mb-2" >
+             함께 웃고, 함께 기뻐해 주세요. 
+             </p>
+                            {/* 갤러리 미리보기 이미지들 */}
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center center'}} />
+                 
+                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center center'}} />
+                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 
+                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center center'}} />
+                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 
+                 
+               </div>
+             
+             
+            {/* 축하글 버튼 */}
+            <div className="mt-2 mb-6">
+              <a
+                href="/gallery"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[100] relative"
+                style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
+              >
+                                 <Images size={16} />
+                 갤러리 구경하기기
+              </a>
+            </div> 
+            </div>
+        </div>
+      </section>
+
+
+
 
        {/* Gray Background Section */}
        <section className="hero-text-section bg-gray-100 py-12 px-6">

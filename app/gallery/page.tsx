@@ -19,14 +19,14 @@ export default function GalleryPage() {
       description: '',
       icon: Heart,
       color: 'bg-pink-50 hover:bg-pink-100',
-      order: 1
+      order: 2
     },
     'studio': {
       title: '스튜디오',
       description: '',
       icon: Aperture,
       color: 'bg-blue-50 hover:bg-blue-100',
-      order: 2
+      order: 1
     },
     'casual': {
       title: '일상',
@@ -322,7 +322,7 @@ export default function GalleryPage() {
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
           <a href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
+          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</a>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
           <a href="/gallery" className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">갤러리</a>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>

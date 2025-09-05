@@ -75,7 +75,6 @@ export default function Home() {
 
               {/* 메시지 */}
               <div className="text-gray-600 leading-snug font-serif">
-              
               <p className="text-base">
                   축하 화환은 정중히 사양합니다.
                 </p>

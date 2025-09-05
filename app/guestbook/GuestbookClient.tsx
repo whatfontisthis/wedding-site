@@ -34,7 +34,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
     });
   };
 
-  // 날짜+시간 포맷팅 함수
+  // 날짜 포맷팅 함수
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
     const dateStr = date.toLocaleDateString('ko-KR', {
@@ -43,13 +43,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
       day: '2-digit',
     }).replace(/\. /g, '.').replace(/\.$/, '');
     
-    const timeStr = date.toLocaleTimeString('ko-KR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-    
-    return `${dateStr} ${timeStr}`;
+    return dateStr;
   };
 
   return (
@@ -90,7 +84,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
           <a href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</a>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는길</a>
+          <a href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</a>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
           <a href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</a>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
@@ -213,9 +207,9 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                       <div key={msg.id} className="border border-input rounded-lg p-4 bg-muted/20">
                         <div className="flex justify-between items-start mb-3">
                           <span className="font-medium text-foreground">{msg.name}</span>
-                          <span className="text-xs text-muted-foreground" style={{ fontFamily: 'Helvetica' }}>{formatDateTime(msg.createdAt)}</span>
+                          <span className="text-sm text-muted-foreground" style={{ fontFamily: 'Helvetica' }}>{formatDateTime(msg.createdAt)}</span>
                         </div>
-                        <p className="text-foreground text-sm whitespace-pre-wrap text-center leading-relaxed" style={{ fontFamily: 'Helvetica' }}>
+                        <p className="text-foreground text-base whitespace-pre-wrap text-center leading-relaxed" style={{ fontFamily: 'Helvetica' }}>
                           {msg.message}
                         </p>
                       </div>
