@@ -475,7 +475,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-800 font-light">국민 4022-40-287731</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">국민 402-24-0287-731</span>
                           <button
                             onClick={() => copyToClipboard('402240287731', 'groom-father')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
@@ -511,7 +511,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-800 font-light">국민 5333-02-01322113</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">국민 533302-01-322113</span>
                           <button
                             onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
@@ -547,7 +547,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-800 font-light">국민 2518-01-04122936</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">국민 251801-04-122936</span>
                           <button
                             onClick={() => copyToClipboard('25180104122936', 'groom')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
