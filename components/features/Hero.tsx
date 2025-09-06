@@ -13,9 +13,10 @@ export default function Hero({
   namesLine,
   dateLocationLine,
 }: HeroProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [imagesReady, setImagesReady] = useState(false);
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
   const [expandedAccounts, setExpandedAccounts] = useState<Record<string, boolean>>({
     'groom-father': false,
@@ -56,27 +57,59 @@ export default function Hero({
     }
   ];
 
+  // All images used in the page for preloading
+  const allPageImages = [
+    ...heroImages.map(img => img.src),
+    "/images/gallery/studio/001.jpg",
+    "/images/gallery/studio/013.jpg", 
+    "/images/gallery/pre-wedding/01.jpg",
+    "/images/gallery/studio/022.jpg",
+    "/images/gallery/pre-wedding/12.JPG",
+    "/images/gallery/pre-wedding/11.jpg"
+  ];
+
+  // Preload all images
   useEffect(() => {
     if (!mounted) return;
     
-    // Trigger image fade-in after a short delay
-    const timer = setTimeout(() => {
-      setImageLoaded(true);
-    }, 500);
+    const preloadAllImages = async () => {
+      const imagePromises = allPageImages.map((src) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve();
+          img.onerror = () => resolve(); // Continue even if image fails
+          img.src = src;
+        });
+      });
+      
+      try {
+        await Promise.all(imagePromises);
+        setAllImagesLoaded(true);
+        
+        // Show first image after all images are loaded
+        setTimeout(() => {
+          setImagesReady(true);
+        }, 100);
+      } catch (error) {
+        console.log('Some images failed to load, continuing anyway');
+        setAllImagesLoaded(true);
+        setImagesReady(true);
+      }
+    };
 
-    return () => clearTimeout(timer);
-  }, [mounted]);
+    preloadAllImages();
+  }, [mounted, allPageImages]);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !imagesReady) return;
     
-    // Rotate through hero images every 8 seconds
+    // Simple image rotation every 6 seconds
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [mounted, heroImages.length]);
+  }, [mounted, imagesReady, heroImages.length]);
 
   useEffect(() => {
     setMounted(true);
@@ -122,6 +155,16 @@ export default function Hero({
 
   return (
     <>
+      {/* Loading overlay */}
+      {!allImagesLoaded && (
+        <div className="fixed inset-0 z-[10002] bg-black flex items-center justify-center">
+          <div className="text-white text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
+            <p className="text-sm font-light">이미지를 불러오는 중...</p>
+          </div>
+        </div>
+      )}
+      
       <style jsx>{`
         @media (min-width: 768px) {
           img {
@@ -211,30 +254,28 @@ export default function Hero({
       `}</style>
       <section className="hero-image-overlay relative min-h-screen overflow-hidden bg-black">
       {/* Background Images */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center">
+      <div className="absolute inset-0 z-0">
         {heroImages.map((image, index) => (
           <img
             key={image.src}
             src={image.src}
             alt={`Wedding background ${index + 1}`}
-            className={`absolute w-full h-full object-cover transition-opacity duration-3000 ease-in-out ${
-              mounted && index === currentImageIndex && imageLoaded ? "opacity-100" : "opacity-0"
+            loading="eager"
+            decoding="sync"
+            className={`absolute w-full h-full object-cover transition-opacity duration-2000 ease-in-out ${
+              mounted && index === currentImageIndex && imagesReady ? "opacity-100" : "opacity-0"
             }`}
-            
             style={{ 
               objectPosition: image.mobilePosition,
               '--desktop-position': image.desktopPosition 
             } as React.CSSProperties & { '--desktop-position': string }}
-            onLoad={() => {
-              if (index === 0 && mounted) setImageLoaded(true);
-            }}
           />
         ))}
       </div>
 
       {/* Top Navigation */}
       <div className={`absolute top-6 left-1/2 transform -translate-x-1/2 z-20 transition-all duration-3000 ease-in-out ${
-        mounted && imageLoaded ? "opacity-100" : "opacity-0"
+        mounted && imagesReady ? "opacity-100" : "opacity-0"
       }`}>
         <nav className="flex items-center text-white font-serif whitespace-nowrap">
           <span className="text-white font-medium text-sm sm:text-base font-light drop-shadow-lg">홈</span>
@@ -249,7 +290,7 @@ export default function Hero({
 
       {/* Text Content - Top Center */}
       <div className={`hero-content absolute top-15 left-1/2 transform -translate-x-1/2 z-10 text-center transition-all duration-3000 ease-in-out ${
-        mounted && imageLoaded ? "opacity-100" : "opacity-0"
+        mounted && imagesReady ? "opacity-100" : "opacity-0"
       }`}>
         <div className="space-y-0">
           <h1 className="text-2xl sm:text-2xl lg:text-2xl font-light text-white/80 drop-shadow-xl leading-tight ">
@@ -317,12 +358,12 @@ export default function Hero({
              </p>
                             {/* 갤러리 미리보기 이미지들 */}
                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
-                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
-                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
-                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" className="w-full h-62 object-cover rounded-lg " style={{objectPosition: 'left bottom'}} />
-                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center center', }} />
-                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'left top'}} />
-                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: '50% bottom'}} />
+                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg " style={{objectPosition: 'left bottom'}} />
+                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center center', }} />
+                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" loading="eager" decoding="sync" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'left top'}} />
+                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" loading="eager" decoding="sync" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: '50% bottom'}} />
                  
                  
                </div>

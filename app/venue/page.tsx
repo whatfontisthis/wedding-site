@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function VenuePage() {
 
   return (
-    <div className="venue-page min-h-screen bg-background text-foreground flex flex-col [&_*]:transition-none [&_p]:select-text [&_h1]:select-text [&_h2]:select-text [&_span]:select-text [&_div]:select-text [&_a]:cursor-pointer [&_img]:select-none">
+    <div className="venue-page min-h-screen bg-background text-foreground flex flex-col [&_p]:select-text [&_h1]:select-text [&_h2]:select-text [&_span]:select-text [&_div]:select-text [&_a]:cursor-pointer [&_img]:select-none">
       <Navigation
         currentPage="venue"
         currentLanguage="ko"
