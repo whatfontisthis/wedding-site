@@ -38,13 +38,13 @@ export const metadata: Metadata = {  title: {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://woobin-jimin-wedding.vercel.app",
+    url: "https://minibini.site",
     siteName: languages.ko.metaTitle,
     title: languages.ko.metaTitle,
     description: languages.ko.metaDescription,
     images: [
       {
-        url: "/images/hero/hero_01.jpg",
+        url: "https://minibini.site/images/hero/hero_01.jpg",
         width: 1200,
         height: 630,
         alt: "이우빈 & 김지민 결혼식",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {  title: {
     card: "summary_large_image",
     title: languages.ko.metaTitle,
     description: languages.ko.metaDescription,
-    images: ["/images/hero/hero_01.jpg"],
+    images: ["https://minibini.site/images/hero/hero_01.jpg"],
     creator: "@woobin_dev",
   },
   viewport: {

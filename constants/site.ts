@@ -2,8 +2,8 @@ import type { SiteConfig, FontsConfig } from '../types/site';
 
 export const languages: SiteConfig = {
   ko: {
-    metaTitle: "WOOBIN & JIMIN 결혼식",
-    metaDescription: "2025년 10월 19일, 더채플앳논현에서 열리는 WOOBin과 JIMIN의 결혼식에 초대합니다.",
+    metaTitle: "이우빈 & 김지민 결혼식",
+    metaDescription: "2025년 10월 19일 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
     //히어로 섹션
     hero: {
       namesLine: "이우빈 & 김지민", 
