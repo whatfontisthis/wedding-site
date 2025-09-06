@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import Hero from "@/components/features/Hero";
 import Navigation from "@/components/layout/Navigation";
-import { languages, type Language } from "@/constants/site";
+import { languages } from "@/constants/site";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { X } from "lucide-react";
 
 export default function Home() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
+  const { currentLanguage } = useLanguage();
   const [showPopup, setShowPopup] = useState(false);
 
   const siteData = languages[currentLanguage];
@@ -39,7 +40,6 @@ export default function Home() {
       <Navigation
         currentPage="home"
         currentLanguage={currentLanguage}
-        onLanguageChange={setCurrentLanguage}
       />
 
       {/* Hero Section - Full Screen */}
@@ -68,14 +68,19 @@ export default function Home() {
 
               {/* 제목 */}
               <h2 className="text-xl font-semibold text-gray-800 font-noto leading-snug ">
-              ❀ 정중한 안내 ❀
+              {siteData.popup.title}
               </h2>
 
               {/* 메시지 */}
               <div className="text-gray-600 leading-snug font-serif">
               
               <p className="text-base">
-                  축하 화환은 정중히 사양합니다. <br/> 좋은 마음만 감사히 받겠습니다.
+                  {siteData.popup.message.split('\n').map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      {index < siteData.popup.message.split('\n').length - 1 && <br />}
+                    </span>
+                  ))}
                 </p>
 
               </div>
@@ -85,7 +90,7 @@ export default function Home() {
                 onClick={closePopup}
                 className="w-60 bg-black text-white py-2 px-2 rounded-lg hover:bg-gray-800 transition-colors font-noto"
               >
-                확인
+                {siteData.popup.button}
               </button>
             </div>
           </div>

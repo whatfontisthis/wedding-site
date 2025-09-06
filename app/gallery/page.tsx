@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { type Language } from "@/constants/site";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import GallerySlider from "@/components/features/GalleryGrid";
@@ -9,24 +10,24 @@ import Link from "next/link";
 
 
 export default function GalleryPage() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
+  const { currentLanguage } = useLanguage();
 
   // Gallery folder configuration
   const galleryConfig = {
     'pre-wedding': {
-      title: '프리웨딩',
+      title: currentLanguage === 'ko' ? '프리웨딩' : 'Pre-Wedding',
       description: '',
       color: 'bg-pink-50 hover:bg-pink-100',
       order: 2
     },
     'studio': {
-      title: '스튜디오',
+      title: currentLanguage === 'ko' ? '스튜디오' : 'Studio',
       description: '',
       color: 'bg-blue-50 hover:bg-blue-100',
       order: 1
     },
     'casual': {
-      title: '일상',
+      title: currentLanguage === 'ko' ? '일상' : 'Daily Life',
       description: '',
       color: 'bg-green-50 hover:bg-green-100',
       order: 3
@@ -142,7 +143,9 @@ export default function GalleryPage() {
                   <div className="max-w-6xl mx-auto px-6">
                     {/* 섹션 헤더 */}
                     <div className={`text-center mb-6 ${index === 0 ? 'mt-8' : ''}`}>
-                      <h2 className="text-xl text-foreground" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+                      <h2 className={`text-xl text-foreground ${
+                        currentLanguage === 'en' ? 'font-pinyon font-bold' : ''
+                      }`} style={currentLanguage === 'ko' ? {fontFamily: '210 Yeonaesidae, sans-serif'} : {}}>
                         {config.title}
                       </h2>
                     </div>
@@ -154,9 +157,9 @@ export default function GalleryPage() {
                       </div>
                     ) : (
                       <div className="text-center py-16">
-                        <p className="text-muted-foreground text-lg mb-2">아직 사진이 없습니다</p>
+                        <p className="text-muted-foreground text-lg mb-2">{currentLanguage === 'ko' ? '아직 사진이 없습니다' : 'No photos yet'}</p>
                         <p className="text-muted-foreground text-sm">
-                          곧 아름다운 사진들로 채워질 예정입니다
+                          {currentLanguage === 'ko' ? '곧 아름다운 사진들로 채워질 예정입니다' : 'Beautiful photos coming soon'}
                         </p>
                       </div>
                     )}
@@ -175,19 +178,18 @@ export default function GalleryPage() {
       <Navigation
         currentPage="gallery"
         currentLanguage={currentLanguage}
-        onLanguageChange={setCurrentLanguage}
       />
 
       {/* 상단 네비게이션 - Absolute 위치 */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
-          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</Link>
+          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '홈' : 'Home'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</Link>
+          <Link href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '오시는 길' : 'Venue'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">갤러리</span>
+          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">{currentLanguage === 'ko' ? '갤러리' : 'Gallery'}</span>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</Link>
+          <Link href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '방명록' : 'Guestbook'}</Link>
         </nav>
       </div>
 

@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { MapPin, Copy, Check, ChevronDown, ChevronUp, Images } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { languages } from "@/constants/site";
 
 type HeroProps = {
   namesLine: string;
@@ -13,6 +15,8 @@ export default function Hero({
   namesLine,
   dateLocationLine,
 }: HeroProps) {
+  const { currentLanguage } = useLanguage();
+  const siteData = languages[currentLanguage];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [imagesReady, setImagesReady] = useState(false);
@@ -278,13 +282,13 @@ export default function Hero({
         mounted && imagesReady ? "opacity-100" : "opacity-0"
       }`}>
         <nav className="flex items-center text-white font-serif whitespace-nowrap">
-          <span className="text-white font-medium text-sm sm:text-base font-light drop-shadow-lg">홈</span>
+          <span className="text-white font-medium text-sm sm:text-base font-light drop-shadow-lg">{siteData.heroContent.navigation.home}</span>
           <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</Link>
+          <Link href="/venue" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{siteData.heroContent.navigation.venue}</Link>
           <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</Link>
+          <Link href="/gallery" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{siteData.heroContent.navigation.gallery}</Link>
           <span className="text-white/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/guestbook" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</Link>
+          <Link href="/guestbook" className="text-white hover:text-white/80 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{siteData.heroContent.navigation.guestbook}</Link>
         </nav>
       </div>
 
@@ -293,11 +297,15 @@ export default function Hero({
         mounted && imagesReady ? "opacity-100" : "opacity-0"
       }`}>
         <div className="space-y-0">
-          <h1 className="text-2xl sm:text-2xl lg:text-2xl font-light text-white/80 drop-shadow-xl leading-tight ">
-            {namesLine}  {/*이우빈 & 신부*/}
+          <h1 className={`text-xl sm:text-2xl lg:text-2xl font-light text-white/80 drop-shadow-xl leading-tight ${
+            currentLanguage === 'en' ? 'font-pinyon whitespace-nowrap' : ''
+          }`}>
+            {currentLanguage === 'en' ? 'Woobin Lee & Jimin Kim' : namesLine}
           </h1>
-          <p className="text-white/80 text-xl font-light tracking-tight drop-shadow-lg leading-tight font-spoqa">
-            {dateLocationLine}  {/*2025. 10. 19*/}
+          <p className={`text-white/80 text-xl font-light tracking-tight drop-shadow-lg leading-tight ${
+            currentLanguage === 'en' ? 'font-pinyon' : 'font-spoqa'
+          }`}>
+            {currentLanguage === 'en' ? 'October 19, 2025' : dateLocationLine}
           </p>
         </div>
       </div>
@@ -310,15 +318,21 @@ export default function Hero({
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Add your text content here */}
           <div className="space-y-2 mt-8">
-            <p className="font-semibold text-xl text-foreground/80 leading-relaxed" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
-              신랑 이우빈 & 신부 김지민
+            <p className={`font-semibold text-xl text-foreground/80 leading-relaxed ${
+              currentLanguage === 'en' ? 'font-pinyon' : ''
+            }`} style={currentLanguage === 'ko' ? {fontFamily: '210 Yeonaesidae, sans-serif'} : {}}>
+              {siteData.heroContent.couple}
             </p>
-            <p className="text-lg leading-relaxed font-light font-spoqa text-foreground/80">
-              2025.10.19 SUN 3:30PM
+            <p className="text-lg leading-relaxed font-light font-spoqa text-foreground/90">
+              {siteData.heroContent.date}
             </p>
             <p className="text-lg text-muted-foreground leading-snug font-light font-noto"  >
-            더채플앳논현 5층 라메르홀
-            <br/>서울시 강남구 논현로 549
+              {siteData.heroContent.venue.split('\n').map((line, index) => (
+                <span key={index}>
+                  {line}
+                  {index < siteData.heroContent.venue.split('\n').length - 1 && <br />}
+                </span>
+              ))}
             </p>
             
             {/* 오시는길 바로가기 버튼 */}
@@ -329,7 +343,7 @@ export default function Hero({
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
                 <MapPin size={16} />
-                오시는 길
+                {siteData.heroContent.venueButton}
               </a>
             </div>
           </div>
@@ -349,12 +363,14 @@ export default function Hero({
                  <span className="inline-block transform rotate-6 ml-1">♡</span>
                </div>
              </div>
-             <div className="space-y-2 mt-8">
-             <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
-              소중한 순간들을 담았습니다.
+             <div className="space-y-2 mt-4">
+             <p className={`font-semibold text-xl text-foreground leading-relaxed ${
+               currentLanguage === 'en' ? 'font-pinyon' : ''
+             }`} style={currentLanguage === 'ko' ? {fontFamily: '"210 Yeonaesidae", sans-serif'} : {}}>
+              {siteData.heroContent.gallery.title}
              </p>
-             <p className="text-lg leading-relaxed font-light font-noto mb-2" >
-             변치 않은 마음으로 함께하겠습니다.
+             <p className="text-lg leading-relaxed font-light font-noto mb-2 text-foreground/90" >
+             {siteData.heroContent.gallery.subtitle}
              </p>
                             {/* 갤러리 미리보기 이미지들 */}
                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
@@ -377,7 +393,7 @@ export default function Hero({
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
                                  <Images size={16} />
-                 갤러리 
+                 {siteData.heroContent.gallery.button} 
               </a>
             </div> 
             </div>
@@ -401,20 +417,37 @@ export default function Hero({
                </div>
              </div>
              
-             <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
-               마음을 담아</p>
+             <p className={`font-semibold text-xl text-foreground leading-relaxed ${
+               currentLanguage === 'en' ? 'font-pinyon' : ''
+             }`} style={currentLanguage === 'ko' ? {fontFamily: '"210 Yeonaesidae", sans-serif'} : {}}>
+               {siteData.heroContent.message.title}</p>
              
-               <p className="text-lg leading-relaxed font-light font-noto mb-3" >
-               무한한 <strong>사랑과 올바른 가르침</strong> 속에서 <br/>저희를 길러주신 부모님께 감사와 <br/>사랑의 마음을 전합니다.
+               <p className="text-lg leading-relaxed font-light font-noto mb-3 text-foreground/90" >
+               {siteData.heroContent.message.paragraph1.split('\n').map((line, index) => (
+                 <span key={index}>
+                   {line}
+                   {index < siteData.heroContent.message.paragraph1.split('\n').length - 1 && <br />}
+                 </span>
+               ))}
               </p>
 
-              <p className="text-lg leading-relaxed font-light font-noto mb-3" >
-               아울러 저희 인생의 <strong>가장 소중한 순간</strong>을 <br/>함께 축복해주신 모든 분들께 <br/> 진심으로 감사드립니다.
+              <p className="text-lg leading-relaxed font-light font-noto mb-3 text-foreground/90" >
+               {siteData.heroContent.message.paragraph2.split('\n').map((line, index) => (
+                 <span key={index}>
+                   {line}
+                   {index < siteData.heroContent.message.paragraph2.split('\n').length - 1 && <br />}
+                 </span>
+               ))}
               </p>
               
 
-              <p className="text-lg leading-relaxed font-light font-noto">
-              앞으로도 변함없는 <strong>사랑과 믿음</strong>으로 <br/>아름다운 가정을 이루어 나가겠습니다.
+              <p className="text-lg leading-relaxed font-light font-noto text-foreground/90">
+              {siteData.heroContent.message.paragraph3.split('\n').map((line, index) => (
+                 <span key={index}>
+                   {line}
+                   {index < siteData.heroContent.message.paragraph3.split('\n').length - 1 && <br />}
+                 </span>
+               ))}
               </p>
 
             {/* 축하글 버튼 */}
@@ -424,7 +457,7 @@ export default function Hero({
                 className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[100] relative"
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
-                ✎ 방명록 남기기
+                ✎ {siteData.heroContent.message.button}
               </a>
             </div>             
            </div>
@@ -438,15 +471,17 @@ export default function Hero({
           {/* Add your text content here */}
           
           <div className="space-y-2 mt-8">
-            <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
-              정중한 안내
+            <p className={`font-semibold text-xl text-foreground leading-relaxed ${
+              currentLanguage === 'en' ? 'font-pinyon' : ''
+            }`} style={currentLanguage === 'ko' ? {fontFamily: '"210 Yeonaesidae", sans-serif'} : {}}>
+              {siteData.heroContent.notice.title}
             </p>
-            <p className="text-lg leading-relaxed font-light font-noto" >
-            참석이 어려우신 분들을 위해 안내드립니다.
+            <p className="text-lg leading-relaxed font-light font-noto text-foreground/90" >
+            {siteData.heroContent.notice.message}
             </p>
             
-            <p className="text-base text-muted-foreground font-light leading-relaxed font-noto">
-            ※ 화환은 정중히 사양하오니 양해 부탁드립니다.
+            <p className="text-base text-foreground/80 font-light leading-relaxed font-noto">
+            {siteData.heroContent.notice.flowers}
             </p>
             
             </div>
@@ -455,7 +490,9 @@ export default function Hero({
               {/* 신랑 측 */}
               <div className="bg-gray-100 rounded-lg font-serif">
                 <div className="p-4 pb-2">
-                  <p className="text-lg font-bold mb-4 text-center">신랑 측</p>
+                  <p className={`text-lg font-bold mb-4 text-center ${
+                    currentLanguage === 'en' ? 'font-pinyon' : ''
+                  }`}>{siteData.heroContent.accounts.groomSide}</p>
                   
                   {/* 아버지 이문주 */}
                   <div className="mb-3">
@@ -464,7 +501,7 @@ export default function Hero({
                       className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
                       style={{ pointerEvents: 'auto' }}
                     >
-                      <span className="text-base">아버지 이문주</span>
+                      <span className={`text-base ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{siteData.heroContent.accounts.groomFather}</span>
                       <div className="absolute right-3">
                         {expandedAccounts['groom-father'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </div>
@@ -479,7 +516,7 @@ export default function Hero({
                           <button
                             onClick={() => copyToClipboard('402240287731', 'groom-father')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
-                            title="계좌번호 복사"
+                            title={siteData.heroContent.accounts.copyTitle}
                             style={{ pointerEvents: 'auto' }}
                           >
                             {copiedAccount === 'groom-father' ? (
@@ -500,7 +537,7 @@ export default function Hero({
                       className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
                       style={{ pointerEvents: 'auto' }}
                     >
-                      <span className="text-base">어머니 정옥희</span>
+                      <span className={`text-base ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{siteData.heroContent.accounts.groomMother}</span>
                       <div className="absolute right-3">
                         {expandedAccounts['groom-mother'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </div>
@@ -515,7 +552,7 @@ export default function Hero({
                           <button
                             onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
-                            title="계좌번호 복사"
+                            title={siteData.heroContent.accounts.copyTitle}
                             style={{ pointerEvents: 'auto' }}
                           >
                             {copiedAccount === 'groom-mother' ? (
@@ -536,7 +573,7 @@ export default function Hero({
                       className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
                       style={{ pointerEvents: 'auto' }}
                     >
-                      <span className="text-base">신랑 이우빈</span>
+                      <span className={`text-base ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{siteData.heroContent.accounts.groom}</span>
                       <div className="absolute right-3">
                         {expandedAccounts['groom'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </div>
@@ -551,7 +588,7 @@ export default function Hero({
                           <button
                             onClick={() => copyToClipboard('25180104122936', 'groom')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
-                            title="계좌번호 복사"
+                            title={siteData.heroContent.accounts.copyTitle}
                             style={{ pointerEvents: 'auto' }}
                           >
                             {copiedAccount === 'groom' ? (
@@ -570,7 +607,9 @@ export default function Hero({
               {/* 신부 측 */}
               <div className="bg-gray-100 font-serif rounded-lg font-light">
                 <div className="p-4 pb-2">
-                  <p className="text-lg font-bold  mb-4 text-center">신부 측</p>
+                  <p className={`text-lg font-bold  mb-4 text-center ${
+                    currentLanguage === 'en' ? 'font-pinyon' : ''
+                  }`}>{siteData.heroContent.accounts.brideSide}</p>
                   
                   {/* 아버지 김홍근 */}
                   <div className="mb-3">
@@ -579,7 +618,7 @@ export default function Hero({
                       className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
                       style={{ pointerEvents: 'auto' }}
                     >
-                      <span className="text-base">아버지 김홍근</span>
+                      <span className={`text-base ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{siteData.heroContent.accounts.brideFather}</span>
                       <div className="absolute right-3">
                         {expandedAccounts['bride-father'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </div>
@@ -594,7 +633,7 @@ export default function Hero({
                           <button
                             onClick={() => copyToClipboard('13850015244', 'bride-father')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
-                            title="계좌번호 복사"
+                            title={siteData.heroContent.accounts.copyTitle}
                             style={{ pointerEvents: 'auto' }}
                           >
                             {copiedAccount === 'bride-father' ? (
@@ -615,7 +654,7 @@ export default function Hero({
                       className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
                       style={{ pointerEvents: 'auto' }}
                     >
-                      <span className="text-base">어머니 정혜원</span>
+                      <span className={`text-base ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{siteData.heroContent.accounts.brideMother}</span>
                       <div className="absolute right-3">
                         {expandedAccounts['bride-mother'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </div>
@@ -626,7 +665,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="text-center">
-                          <p className="font-spoqa text-base text-gray-800 font-light">계좌번호 비공개</p>
+                          <p className="font-spoqa text-base text-gray-800 font-light">{siteData.heroContent.accounts.privateAccount}</p>
                         </div>
                       </div>
                     </div>
@@ -639,7 +678,7 @@ export default function Hero({
                       className="w-full flex items-center justify-center p-3 hover:bg-gray-50 rounded-lg transition-colors relative bg-gray-50"
                       style={{ pointerEvents: 'auto' }}
                     >
-                      <span className="text-base">신부 김지민</span>
+                      <span className={`text-base ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{siteData.heroContent.accounts.bride}</span>
                       <div className="absolute right-3">
                         {expandedAccounts['bride'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </div>
@@ -654,7 +693,7 @@ export default function Hero({
                           <button
                             onClick={() => copyToClipboard('93501186801016', 'bride')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
-                            title="계좌번호 복사"
+                            title={siteData.heroContent.accounts.copyTitle}
                             style={{ pointerEvents: 'auto' }}
                           >
                             {copiedAccount === 'bride' ? (

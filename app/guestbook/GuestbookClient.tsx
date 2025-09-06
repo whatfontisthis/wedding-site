@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { type Language } from "@/constants/site";
+import { type Language, languages } from "@/constants/site";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import Section from "@/components/ui/Section";
@@ -14,20 +15,21 @@ interface GuestbookClientProps {
 }
 
 export default function GuestbookClient({ messages, addMessageAction }: GuestbookClientProps) {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("ko");
+  const { currentLanguage } = useLanguage();
   const [isPending, startTransition] = useTransition();
   const [submitMessage, setSubmitMessage] = useState("");
+  const siteData = languages[currentLanguage];
 
   const handleSubmit = async (formData: FormData) => {
     startTransition(async () => {
       const result = await addMessageAction(formData);
       if (result.success) {
-        setSubmitMessage("메시지가 성공적으로 등록되었습니다! 🎉");
+        setSubmitMessage(siteData.guestbook.successMessage);
         // 폼 리셋
         const form = document.querySelector('form') as HTMLFormElement;
         if (form) form.reset();
       } else {
-        setSubmitMessage(result.error || "오류가 발생했습니다.");
+        setSubmitMessage(result.error || siteData.guestbook.errorMessage);
       }
       
       // 메시지를 3초 후에 지우기
@@ -77,19 +79,18 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
       <Navigation
         currentPage="guestbook"
         currentLanguage={currentLanguage}
-        onLanguageChange={setCurrentLanguage}
       />
 
       {/* 상단 네비게이션 - Absolute 위치 */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
-          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</Link>
+          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '홈' : 'Home'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">오시는 길</Link>
+          <Link href="/venue" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '오시는 길' : 'Venue'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</Link>
+          <Link href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '갤러리' : 'Gallery'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">방명록</span>
+          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">{currentLanguage === 'ko' ? '방명록' : 'Guestbook'}</span>
         </nav>
       </div>
 
@@ -104,14 +105,14 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
 
             <div className="space-y-16">
               <div className="bg-gray-50 p-5 rounded-lg">
-                <Section title="축하 메시지 전하기">
-                <p className="font-noto text-lg text-gray-800 font-light" >소중한 축하와 응원의 말씀을 남겨주세요.</p>
+                <Section title={siteData.guestbook.title} currentLanguage={currentLanguage}>
+                <p className="font-noto text-lg text-gray-800 font-light" >{siteData.guestbook.description}</p>
                   <form action={handleSubmit} className="space-y-4">
                   <div>
                     <input
                       type="text"
                       name="name"
-                      placeholder="성함"
+                      placeholder={siteData.guestbook.namePlaceholder}
                       className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring z-[100]"
                       style={{
                         pointerEvents: 'auto',
@@ -139,7 +140,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                   <div>
                     <textarea
                       name="message"
-                      placeholder="따뜻한 축하 메시지"
+                      placeholder={siteData.guestbook.messagePlaceholder}
                       className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring z-[100]"
                       style={{
                         pointerEvents: 'auto',
@@ -184,7 +185,7 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                     onTouchStart={(e) => e.stopPropagation()}
                     disabled={isPending}
                   >
-                    {isPending ? "메시지 등록 중..." : "메시지 남기기"}
+                    {isPending ? (currentLanguage === 'ko' ? "메시지 등록 중..." : "Submitting...") : siteData.guestbook.submitButton}
                   </button>
                   
                   {/* 제출 메시지 */}
@@ -197,11 +198,11 @@ export default function GuestbookClient({ messages, addMessageAction }: Guestboo
                 </Section>
               </div>
 
-              <Section title="받은 축하 메시지">
+              <Section title={siteData.guestbook.receivedMessages} currentLanguage={currentLanguage}>
                 <div className="space-y-4">
                   {messages.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
-                      아직 등록된 메시지가 없습니다. 첫 번째 축하 메시지를 남겨주세요! 💝
+                      {siteData.guestbook.noMessages}
                     </div>
                   ) : (
                     messages.map((msg) => (

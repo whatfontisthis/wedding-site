@@ -1,37 +1,33 @@
+"use client";
+
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import Link from "next/link";
-import type { Metadata } from "next";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { languages } from "@/constants/site";
 
-export const metadata: Metadata = {
-  title: "오시는길",
-  description: "이우빈 & 김지민 결혼식 장소 안내입니다. 더채플앳논현 5층 라메르홀, 서울시 강남구 논현로 549. 지하철 및 주차 정보를 확인하세요.",
-  openGraph: {
-    title: "오시는길 | 이우빈 & 김지민 결혼식",
-    description: "결혼식 장소: 더채플앳논현 5층 라메르홀, 2025년 10월 19일 오후 3시 30분",
-    images: ["/chaple_door.jpg"],
-  },
-};
 
 export default function VenuePage() {
+  const { currentLanguage } = useLanguage();
+  const siteData = languages[currentLanguage];
 
   return (
     <div className="venue-page min-h-screen bg-background text-foreground flex flex-col [&_p]:select-text [&_h1]:select-text [&_h2]:select-text [&_span]:select-text [&_div]:select-text [&_a]:cursor-pointer [&_img]:select-none">
       <Navigation
         currentPage="venue"
-        currentLanguage="ko"
+        currentLanguage={currentLanguage}
       />
 
       {/* 상단 네비게이션 - Absolute 위치 */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
         <nav className="flex items-center justify-center text-black font-serif whitespace-nowrap">
-          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">홈</Link>
+          <Link href="/" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '홈' : 'Home'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">오시는 길</span>
+          <span className="text-black font-medium text-sm sm:text-base drop-shadow-lg underline underline-offset-2">{currentLanguage === 'ko' ? '오시는 길' : 'Venue'}</span>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">갤러리</Link>
+          <Link href="/gallery" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '갤러리' : 'Gallery'}</Link>
           <span className="text-black/60 mx-1 sm:mx-2 text-sm sm:text-base">|</span>
-          <Link href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">방명록</Link>
+          <Link href="/guestbook" className="text-black hover:text-black/70 transition-colors text-sm sm:text-base font-light drop-shadow-lg">{currentLanguage === 'ko' ? '방명록' : 'Guestbook'}</Link>
         </nav>
       </div>
 
@@ -48,11 +44,17 @@ export default function VenuePage() {
             <section className="venue-info bg-white pt-20 pb-12">
               <div className="max-w-2xl mx-auto px-6">
                 <div className="flex flex-col gap-4">
-                  <h2 className="venue-info__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>예식장 위치</h2>
+                  <h2 className={`text-xl text-center ${
+                    currentLanguage === 'en' ? 'font-pinyon text-gray-800 font-bold' : 'font-medium'
+                  }`} style={currentLanguage === 'ko' ? {fontFamily: '210 Yeonaesidae, Verdana'} : {}}>{siteData.venue.location}</h2>
                   <div className="w-full">
                     <div className="space-y-1 text-center font-light" style={{fontFamily: 'Verdana'}}>
-                      <p className="font-noto text-base text-gray-800 font-light">더채플앳논현 5층 라메르홀
-                      <br/>서울시 강남구 논현로 549</p>
+                      <p className="font-noto text-base text-gray-800 font-light">{siteData.venue.address.split('\n').map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          {index < siteData.venue.address.split('\n').length - 1 && <br />}
+                        </span>
+                      ))}</p>
                     </div>
                     <div className="mt-4 flex justify-center">
                       <img
@@ -71,11 +73,14 @@ export default function VenuePage() {
               <div className="max-w-2xl mx-auto px-6">
                 <div className="directions__wrap bg-white p-4 md:p-5">
                   <div className="flex flex-col gap-4">
-                    <h2 className="directions__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>오시는 길</h2>
+                    <h2 className={`text-xl text-center ${
+                      currentLanguage === 'en' ? 'font-pinyon text-gray-800 font-bold' : 'font-medium'
+                    }`} style={currentLanguage === 'ko' ? {fontFamily: '210 Yeonaesidae, Verdana'} : {}}>{siteData.venue.directions}</h2>
                     <div className="w-full">
                       <div className="space-y-1 text-center font-light">
-                        <p className="font-noto text-base text-gray-800 font-light">2호선 역삼역 6번 출구 좌측 450m</p>
-                        <p className="font-noto text-base text-gray-800 font-light">9호선 언주역 7번 출구 정면 150m</p>
+                        {siteData.venue.subway.split('\n').map((line, index) => (
+                          <p key={index} className="font-noto text-base text-gray-800 font-light">{line}</p>
+                        ))}
                       </div>
                       <div className="mt-4 flex justify-center mb-2">
                         <img
@@ -94,11 +99,14 @@ export default function VenuePage() {
             <section className="parking my-10 bg-white">
               <div className="max-w-2xl mx-auto px-6">
                 <div className="flex flex-col gap-4">
-                  <h2 className="parking__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>주차</h2>
+                  <h2 className={`text-xl text-center ${
+                    currentLanguage === 'en' ? 'font-pinyon text-gray-800 font-bold' : 'font-medium'
+                  }`} style={currentLanguage === 'ko' ? {fontFamily: '210 Yeonaesidae, Verdana'} : {}}>{siteData.venue.parking}</h2>
                   <div className="w-full">
                     <div className="space-y-1 text-center font-light" style={{fontFamily: 'Verdana'}}>
-                      <p className="font-noto text-base text-gray-800 font-light">발렛 파킹 서비스를 제공하오니,  </p>
-                      <p className="font-noto text-base text-gray-800 font-light mb-2">차량을 맡기시면 편리하게 이용하실 수 있습니다.</p>
+                      {siteData.venue.parkingInfo.split('\n').map((line, index) => (
+                        <p key={index} className="font-noto text-base text-gray-800 font-light">{line}</p>
+                      ))}
                     </div>
                   </div>
                 </div>

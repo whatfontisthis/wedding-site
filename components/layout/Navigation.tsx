@@ -2,32 +2,31 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { type Language } from "@/constants/site";
+import { type Language, languages } from "@/constants/site";
 import { useAudio } from "@/contexts/AudioContext";
-import { Menu, X, Home, MapPin, Images, BookOpen, Music, VolumeX, Volume2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Menu, X, Home, MapPin, Images, BookOpen, Music, VolumeX, Volume2, Globe } from "lucide-react";
 
 type NavigationProps = {
   currentPage: string;
   currentLanguage: Language;
-  onLanguageChange?: (language: Language) => void;
 };
 
 export default function Navigation({
   currentPage,
   currentLanguage,
-  onLanguageChange,
 }: NavigationProps) {
-  // Keep parameters for future use
-  void currentLanguage;
-  void onLanguageChange;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isPlaying, volume, toggleMusic, setVolume } = useAudio();
+  const { toggleLanguage } = useLanguage();
+  
+  const siteData = languages[currentLanguage];
 
   const navItems = [
-    { href: "/", label: "홈", page: "home", icon: Home },
-    { href: "/venue", label: "오시는 길", page: "venue", icon: MapPin },
-    { href: "/gallery", label: "갤러리", page: "gallery", icon: Images },
-    { href: "/guestbook", label: "방명록", page: "guestbook", icon: BookOpen },
+    { href: "/", label: currentLanguage === 'ko' ? "홈" : "Home", page: "home", icon: Home },
+    { href: "/venue", label: currentLanguage === 'ko' ? "오시는 길" : "Venue", page: "venue", icon: MapPin },
+    { href: "/gallery", label: currentLanguage === 'ko' ? "갤러리" : "Gallery", page: "gallery", icon: Images },
+    { href: "/guestbook", label: currentLanguage === 'ko' ? "방명록" : "Guestbook", page: "guestbook", icon: BookOpen },
   ];
 
   const toggleMenu = () => {
@@ -110,20 +109,29 @@ export default function Navigation({
                       }`}
                     >
                       <IconComponent size={16} />
-                      <span className="font-light">{item.label}</span>
+                      <span className={`font-light ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{item.label}</span>
                     </Link>
                   );
                 })}
                 
                 {/* Music Controls */}
                 <div className="border-t border-white/20 pt-3 mt-2 space-y-3">
+                  {/* Language Toggle */}
+                  <button
+                    onClick={toggleLanguage}
+                    className="flex items-center gap-2 text-white/90 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 text-sm w-full"
+                  >
+                    <Globe size={16} />
+                    <span className={`font-light ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{currentLanguage === 'ko' ? "English" : "한국어"}</span>
+                  </button>
+                  
                   {/* Music Toggle */}
                   <button
                     onClick={toggleMusic}
                     className="flex items-center gap-2 text-white/90 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 text-sm w-full"
                   >
                     {isPlaying ? <Music size={16} /> : <VolumeX size={16} />}
-                    <span className="font-light">{isPlaying ? "음악 끄기" : "음악 켜기"}</span>
+                    <span className={`font-light ${currentLanguage === 'en' ? 'font-pinyon' : ''}`}>{isPlaying ? (currentLanguage === 'ko' ? "음악 끄기" : "Turn off music") : (currentLanguage === 'ko' ? "음악 켜기" : "Turn on music")}</span>
                   </button>
                   
                   {/* Volume Slider */}
