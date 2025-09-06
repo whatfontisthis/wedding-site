@@ -17,7 +17,7 @@ const criticalImages = [
 
 export const metadata: Metadata = {
   title: "이우빈 & 김지민 결혼식",
-  description: "2025년 10월 19일 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
+  description: "2025.10.19 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
   keywords: [
     "이우빈",
     "김지민", 
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "이우빈 & 김지민 결혼식",
-    description: "2025년 10월 19일 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
+    description: "2025.10.19 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
     url: "https://minibini.site",
     siteName: "이우빈 & 김지민 결혼식",
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "이우빈 & 김지민 결혼식",
-    description: "2025년 10월 19일 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
+    description: "2025.10.19 | 더채플앳논현 | 함께해 주시면 감사하겠습니다.",
     images: ["https://minibini.site/images/hero/hero_01.jpg"],
   },
   robots: {
