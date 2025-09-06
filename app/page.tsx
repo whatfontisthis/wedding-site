@@ -67,7 +67,7 @@ export default function Home() {
              
 
               {/* 제목 */}
-              <h2 className="text-xl font-semibold text-gray-800 font-noto leading-snug font">
+              <h2 className="text-xl font-semibold text-gray-800 font-noto leading-snug ">
               ❀ 정중한 안내 ❀
               </h2>
 
@@ -78,16 +78,12 @@ export default function Home() {
                   축하 화환은 정중히 사양합니다. <br/> 좋은 마음만 감사히 받겠습니다.
                 </p>
 
-
-                <p className="text-sm font-light">       
-                음악은 메뉴에서 끄실 수 있습니다.
-                </p>
               </div>
 
               {/* 확인 버튼 */}
               <button
                 onClick={closePopup}
-                className="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors font-noto"
+                className="w-60 bg-black text-white py-2 px-2 rounded-lg hover:bg-gray-800 transition-colors font-noto"
               >
                 확인
               </button>
