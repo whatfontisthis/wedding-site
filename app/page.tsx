@@ -73,11 +73,14 @@ export default function Home() {
 
               {/* 메시지 */}
               <div className="text-gray-600 leading-snug font-serif">
+              
               <p className="text-base">
-                  축하 화환은 정중히 사양합니다.
+                  축하 화환은 정중히 사양합니다. <br/> 좋은 마음만 감사히 받겠습니다.
                 </p>
-                <p className="text-base">
-                  좋은 마음만 감사히 받겠습니다.
+
+
+                <p className="text-sm font-light">       
+                음악은 메뉴에서 끄실 수 있습니다.
                 </p>
               </div>
 

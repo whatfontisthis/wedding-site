@@ -281,7 +281,7 @@ export default function Hero({
             </p>
             
             {/* 오시는길 바로가기 버튼 */}
-            <div className="mt-4 mb-6">
+            <div className="mt-6 mb-6">
               <a
                 href="/venue"
                 className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[100] relative"
@@ -310,21 +310,19 @@ export default function Hero({
              </div>
              <div className="space-y-2 mt-8">
              <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
-              우리의 순간들을 담았습니다.
+              소중한 순간들을 담았습니다.
              </p>
              <p className="text-lg leading-relaxed font-light font-noto mb-2" >
-             함께 웃고, 함께 기뻐해 주세요. 
+             변치 않은 마음으로 함께하겠습니다.
              </p>
                             {/* 갤러리 미리보기 이미지들 */}
                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
-                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
-                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center center'}} />
-                 
-                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center center'}} />
-                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
-                 
-                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center center'}} />
-                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" className="w-full h-62 object-cover rounded-lg " style={{objectPosition: 'left bottom'}} />
+                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center center', }} />
+                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'left top'}} />
+                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: '50% bottom'}} />
                  
                  
                </div>
@@ -338,7 +336,7 @@ export default function Hero({
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
                                  <Images size={16} />
-                 갤러리 구경하기기
+                 갤러리 
               </a>
             </div> 
             </div>
@@ -365,8 +363,12 @@ export default function Hero({
              <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
                마음을 담아</p>
              
+               <p className="text-lg leading-relaxed font-light font-noto mb-3" >
+               무한한 <strong>사랑과 올바른 가르침</strong> 속에서 <br/>저희를 길러주신 부모님께 감사와 <br/>사랑의 마음을 전합니다.
+              </p>
+
               <p className="text-lg leading-relaxed font-light font-noto mb-3" >
-               저희 인생의 <strong>가장 소중한 순간</strong>을 <br/>함께해 주셔서 진심으로 감사합니다.
+               아울러 저희 인생의 <strong>가장 소중한 순간</strong>을 <br/>함께 축복해주신 모든 분들께 <br/> 진심으로 감사드립니다.
               </p>
               
 
@@ -375,13 +377,13 @@ export default function Hero({
               </p>
 
             {/* 축하글 버튼 */}
-            <div className="mt-4 mb-6">
+            <div className="mt-8 mb-6">
               <a
                 href="/guestbook"
                 className="inline-flex items-center gap-2 px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer z-[100] relative"
                 style={{fontFamily: '"Apple SD Gothic Neo", sans-serif', pointerEvents: 'auto'}}
               >
-                ✏️ 방명록 남기기
+                ✎ 방명록 남기기
               </a>
             </div>             
            </div>
@@ -398,13 +400,14 @@ export default function Hero({
             <p className="font-semibold text-xl text-foreground leading-relaxed" style={{fontFamily: '"210 Yeonaesidae", sans-serif'}}>
               정중한 안내
             </p>
-            <p className="font-serif text-lg leading-relaxed font-light font-noto" >
+            <p className="text-lg leading-relaxed font-light font-noto" >
             참석이 어려우신 분들을 위해 안내드립니다.
             </p>
             
-            <p className="font-serif text-base text-muted-foreground font-light leading-snug font-noto">
+            <p className="text-base text-muted-foreground font-light leading-relaxed font-noto">
             ※ 화환은 정중히 사양하오니 양해 부탁드립니다.
             </p>
+            
             </div>
             
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -431,7 +434,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-400 font-light">국민 4022-40-287731</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">국민 4022-40-287731</span>
                           <button
                             onClick={() => copyToClipboard('402240287731', 'groom-father')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
@@ -467,7 +470,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-400 font-light">국민 5333-02-01322113</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">국민 5333-02-01322113</span>
                           <button
                             onClick={() => copyToClipboard('53330201322113', 'groom-mother')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
@@ -503,7 +506,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-400 font-light">국민 2518-01-04122936</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">국민 2518-01-04122936</span>
                           <button
                             onClick={() => copyToClipboard('25180104122936', 'groom')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
@@ -546,7 +549,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-400 font-light">씨티 138-50015-244</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">씨티 138-50015-244</span>
                           <button
                             onClick={() => copyToClipboard('13850015244', 'bride-father')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"
@@ -582,7 +585,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="text-center">
-                          <p className="font-spoqa text-base text-gray-400 font-light">계좌번호 비공개</p>
+                          <p className="font-spoqa text-base text-gray-800 font-light">계좌번호 비공개</p>
                         </div>
                       </div>
                     </div>
@@ -606,7 +609,7 @@ export default function Hero({
                     }`}>
                       <div className="px-3 pt-2">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="font-spoqa text-base text-gray-400 font-light">기업 935-011868-01-016</span>
+                          <span className="font-spoqa text-base text-gray-800 font-light">기업 935-011868-01-016</span>
                           <button
                             onClick={() => copyToClipboard('93501186801016', 'bride')}
                             className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer z-[100] relative"

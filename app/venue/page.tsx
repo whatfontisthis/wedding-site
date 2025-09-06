@@ -45,7 +45,7 @@ export default function VenuePage() {
           <div className="space-y-0">
             
             {/* 예식장 위치 Section - Full Width White */}
-            <section className="venue-info bg-white py-16">
+            <section className="venue-info bg-white pt-20 pb-12">
               <div className="max-w-2xl mx-auto px-6">
                 <div className="flex flex-col gap-4">
                   <h2 className="venue-info__title text-xl font-medium text-center" style={{fontFamily: '210 Yeonaesidae, Verdana'}}>예식장 위치</h2>

@@ -141,8 +141,8 @@ export default function GalleryPage() {
                 <section key={folderName} className={`${isGraySection ? 'bg-gray-100' : 'bg-white'} py-12`}>
                   <div className="max-w-6xl mx-auto px-6">
                     {/* 섹션 헤더 */}
-                    <div className={`text-center mb-6 ${index === 0 ? 'mt-10' : ''}`}>
-                      <h2 className="text-2xl font-light text-foreground" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
+                    <div className={`text-center mb-6 ${index === 0 ? 'mt-8' : ''}`}>
+                      <h2 className="text-xl text-foreground" style={{fontFamily: '210 Yeonaesidae, sans-serif'}}>
                         {config.title}
                       </h2>
                     </div>
