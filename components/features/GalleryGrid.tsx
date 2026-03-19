@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,118 +14,130 @@ type GallerySliderProps = {
   images: GalleryImage[];
 };
 
-export default function GallerySlider({ images }: GallerySliderProps) {
+const THUMBNAIL_WINDOW = 15; // render this many thumbnails around current index
+
+function GallerySlider({ images }: GallerySliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
+  const mainImageRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<number | null>(null);
+  const touchEndRef = useRef<number | null>(null);
+  const currentIndexRef = useRef(0);
 
-  const goToPrevious = () => {
-    setCurrentIndex(currentIndex === 0 ? images.length - 1 : currentIndex - 1);
-  };
+  // Keep ref in sync with state for keyboard handler
+  currentIndexRef.current = currentIndex;
 
-  const goToNext = () => {
-    setCurrentIndex(currentIndex === images.length - 1 ? 0 : currentIndex + 1);
-  };
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }, [images.length]);
 
-  const goToImage = (index: number) => {
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }, [images.length]);
+
+  const goToImage = useCallback((index: number) => {
     setCurrentIndex(index);
-  };
+  }, []);
 
   // 현재 선택된 썸네일이 보이도록 스크롤
-  const scrollToThumbnail = (index: number) => {
-    if (thumbnailContainerRef.current) {
-      const container = thumbnailContainerRef.current;
-      const thumbnailButton = container.children[index] as HTMLElement;
-      
-      if (thumbnailButton) {
-        const containerRect = container.getBoundingClientRect();
-        const buttonRect = thumbnailButton.getBoundingClientRect();
-        const containerScrollLeft = container.scrollLeft;
-        
-        // 버튼이 컨테이너 중앙에 오도록 스크롤 위치 계산
-        const targetScrollLeft = containerScrollLeft + (buttonRect.left - containerRect.left) - (containerRect.width / 2) + (buttonRect.width / 2);
-        
-        container.scrollTo({
-          left: Math.max(0, targetScrollLeft),
-          behavior: 'smooth'
-        });
-      }
-    }
-  };
-
-  // currentIndex가 변경될 때마다 썸네일 스크롤
   useEffect(() => {
-    scrollToThumbnail(currentIndex);
+    const container = thumbnailContainerRef.current;
+    if (!container) return;
+    const thumbnailButton = container.children[
+      Math.min(currentIndex, container.children.length - 1)
+    ] as HTMLElement | undefined;
+
+    if (thumbnailButton) {
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = thumbnailButton.getBoundingClientRect();
+      const containerScrollLeft = container.scrollLeft;
+      const targetScrollLeft =
+        containerScrollLeft +
+        (buttonRect.left - containerRect.left) -
+        containerRect.width / 2 +
+        buttonRect.width / 2;
+
+      container.scrollTo({
+        left: Math.max(0, targetScrollLeft),
+        behavior: "smooth",
+      });
+    }
   }, [currentIndex]);
 
   // 스와이프 감지를 위한 최소 거리
   const minSwipeDistance = 50;
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchEndRef.current = null;
+    touchStartRef.current = e.targetTouches[0].clientX;
     setIsDragging(true);
-    setDragOffset(0);
-  };
+  }, []);
 
-  const onTouchMove = (e: React.TouchEvent) => {
-    if (!touchStart) return;
-    
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (touchStartRef.current === null) return;
     const currentTouch = e.targetTouches[0].clientX;
-    setTouchEnd(currentTouch);
-    
-    // 드래그 오프셋 계산 (최대 100px로 제한)
-    const offset = Math.max(-100, Math.min(100, currentTouch - touchStart));
-    setDragOffset(offset);
-  };
+    touchEndRef.current = currentTouch;
 
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) {
-      resetDrag();
-      return;
+    // Apply drag offset directly to DOM (no re-render)
+    if (mainImageRef.current) {
+      const offset = Math.max(
+        -100,
+        Math.min(100, currentTouch - touchStartRef.current)
+      );
+      mainImageRef.current.style.transform = `translateX(${offset}px)`;
     }
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+  }, []);
 
-    if (isLeftSwipe) {
+  const onTouchEnd = useCallback(() => {
+    const touchStart = touchStartRef.current;
+    const touchEnd = touchEndRef.current;
+
+    // Reset DOM transform
+    if (mainImageRef.current) {
+      mainImageRef.current.style.transform = "translateX(0px)";
+      mainImageRef.current.style.transition = "transform 0.3s ease-out";
+      // Remove inline transition after it completes
+      setTimeout(() => {
+        if (mainImageRef.current) {
+          mainImageRef.current.style.transition = "";
+        }
+      }, 300);
+    }
+
+    setIsDragging(false);
+    touchStartRef.current = null;
+    touchEndRef.current = null;
+
+    if (touchStart === null || touchEnd === null) return;
+
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
       goToNext();
-    } else if (isRightSwipe) {
+    } else if (distance < -minSwipeDistance) {
       goToPrevious();
     }
-    
-    resetDrag();
-  };
+  }, [goToNext, goToPrevious]);
 
-  const resetDrag = () => {
-    setIsDragging(false);
-    setDragOffset(0);
-    setTouchStart(null);
-    setTouchEnd(null);
-  };
-
-  // 키보드 네비게이션
+  // 키보드 네비게이션 — stable listener, no re-attachment
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case 'ArrowLeft':
-          e.preventDefault();
-          goToPrevious();
-          break;
-        case 'ArrowRight':
-          e.preventDefault();
-          goToNext();
-          break;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setCurrentIndex((prev) =>
+          prev === 0 ? images.length - 1 : prev - 1
+        );
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setCurrentIndex((prev) =>
+          prev === images.length - 1 ? 0 : prev + 1
+        );
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, images.length]);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [images.length]);
 
   if (images.length === 0) {
     return (
@@ -135,10 +147,15 @@ export default function GallerySlider({ images }: GallerySliderProps) {
     );
   }
 
+  // Windowed thumbnails: only render nearby thumbnails
+  const halfWindow = Math.floor(THUMBNAIL_WINDOW / 2);
+  const thumbStart = Math.max(0, currentIndex - halfWindow);
+  const thumbEnd = Math.min(images.length, currentIndex + halfWindow + 1);
+
   return (
     <div className="flex flex-col">
       {/* 메인 이미지 영역 */}
-      <div 
+      <div
         className="relative bg-gray-50 rounded-lg mb-6 h-[400px] md:h-[500px] lg:h-[600px]"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
@@ -147,12 +164,9 @@ export default function GallerySlider({ images }: GallerySliderProps) {
         {/* 메인 이미지 */}
         <div className="relative w-full h-full px-4 md:px-16 overflow-hidden">
           {/* 현재 이미지 */}
-          <div 
+          <div
+            ref={mainImageRef}
             className="absolute inset-0 px-4 md:px-16"
-            style={{
-              transform: `translateX(${dragOffset}px)`,
-              transition: isDragging ? 'none' : 'transform 0.3s ease-out'
-            }}
           >
             <Image
               src={images[currentIndex].src}
@@ -163,44 +177,6 @@ export default function GallerySlider({ images }: GallerySliderProps) {
               priority
             />
           </div>
-          
-          {/* 이전 이미지 미리보기 */}
-          {isDragging && dragOffset > 20 && currentIndex > 0 && (
-            <div 
-              className="absolute inset-0 px-4 md:px-16 opacity-30"
-              style={{
-                transform: `translateX(${dragOffset - 400}px)`,
-                transition: 'none'
-              }}
-            >
-              <Image
-                src={images[currentIndex - 1].src}
-                alt="이전 이미지"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 80vw"
-              />
-            </div>
-          )}
-          
-          {/* 다음 이미지 미리보기 */}
-          {isDragging && dragOffset < -20 && currentIndex < images.length - 1 && (
-            <div 
-              className="absolute inset-0 px-4 md:px-16 opacity-30"
-              style={{
-                transform: `translateX(${dragOffset + 400}px)`,
-                transition: 'none'
-              }}
-            >
-              <Image
-                src={images[currentIndex + 1].src}
-                alt="다음 이미지"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 80vw"
-              />
-            </div>
-          )}
         </div>
 
         {/* 이전 버튼 - 데스크톱에서만 표시 */}
@@ -227,32 +203,41 @@ export default function GallerySlider({ images }: GallerySliderProps) {
 
       {/* 하단 썸네일 네비게이션 */}
       <div className="flex-shrink-0">
-        <div 
+        <div
           ref={thumbnailContainerRef}
           className="flex justify-start items-center space-x-2 overflow-x-auto px-4 scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {images.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => goToImage(index)}
-              className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
-                index === currentIndex 
-                  ? 'border-blue-500 scale-110' 
-                  : 'border-gray-300 hover:border-gray-400 opacity-70 hover:opacity-100'
-              }`}
-            >
-              <Image
-                src={image.src}
-                alt={`썸네일 ${index + 1}`}
-                fill
-                className="object-cover"
-                sizes="80px"
-              />
-            </button>
-          ))}
+          {images.map((image, index) => {
+            const isVisible = index >= thumbStart && index < thumbEnd;
+            return (
+              <button
+                key={image.src}
+                onClick={() => goToImage(index)}
+                className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-[border-color,transform,opacity] duration-300 ${
+                  index === currentIndex
+                    ? "border-blue-500 scale-110"
+                    : "border-gray-300 hover:border-gray-400 opacity-70 hover:opacity-100"
+                }`}
+              >
+                {isVisible ? (
+                  <Image
+                    src={image.src}
+                    alt={`썸네일 ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="80px"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
+
+export default memo(GallerySlider);

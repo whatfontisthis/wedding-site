@@ -61,48 +61,20 @@ export default function Hero({
     }
   ];
 
-  // All images used in the page for preloading
-  const allPageImages = [
-    ...heroImages.map(img => img.src),
-    "/images/gallery/studio/001.jpg",
-    "/images/gallery/studio/013.jpg", 
-    "/images/gallery/pre-wedding/01.jpg",
-    "/images/gallery/studio/022.jpg",
-    "/images/gallery/pre-wedding/12.JPG",
-    "/images/gallery/pre-wedding/11.jpg"
-  ];
-
-  // Preload all images
+  // Show first image immediately, preload remaining hero images in background
   useEffect(() => {
     if (!mounted) return;
-    
-    const preloadAllImages = async () => {
-      const imagePromises = allPageImages.map((src) => {
-        return new Promise<void>((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve();
-          img.onerror = () => resolve(); // Continue even if image fails
-          img.src = src;
-        });
-      });
-      
-      try {
-        await Promise.all(imagePromises);
-        setAllImagesLoaded(true);
-        
-        // Show first image after all images are loaded
-        setTimeout(() => {
-          setImagesReady(true);
-        }, 100);
-      } catch (error) {
-        console.log('Some images failed to load, continuing anyway');
-        setAllImagesLoaded(true);
-        setImagesReady(true);
-      }
-    };
 
-    preloadAllImages();
-  }, [mounted, allPageImages]);
+    // Show first image right away
+    setImagesReady(true);
+    setAllImagesLoaded(true);
+
+    // Preload remaining hero images in background (not gallery images)
+    heroImages.slice(1).forEach((img) => {
+      const preload = new window.Image();
+      preload.src = img.src;
+    });
+  }, [mounted]);
 
   useEffect(() => {
     if (!mounted || !imagesReady) return;
@@ -258,14 +230,14 @@ export default function Hero({
       `}</style>
       <section className="hero-image-overlay relative min-h-screen overflow-hidden bg-black">
       {/* Background Images */}
-      <div className="absolute inset-0 z-0">
+      <div className="hero-bg absolute inset-0 z-0">
         {heroImages.map((image, index) => (
           <img
             key={image.src}
             src={image.src}
             alt={`Wedding background ${index + 1}`}
             loading="eager"
-            decoding="sync"
+            decoding="async"
             className={`absolute w-full h-full object-cover transition-opacity duration-2000 ease-in-out ${
               mounted && index === currentImageIndex && imagesReady ? "opacity-100" : "opacity-0"
             }`}
@@ -374,12 +346,12 @@ export default function Hero({
              </p>
                             {/* 갤러리 미리보기 이미지들 */}
                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
-                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
-                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
-                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg " style={{objectPosition: 'left bottom'}} />
-                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" loading="eager" decoding="sync" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center center', }} />
-                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" loading="eager" decoding="sync" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'left top'}} />
-                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" loading="eager" decoding="sync" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: '50% bottom'}} />
+                 <img src="/images/gallery/studio/001.jpg" alt="Studio photo" loading="eager" decoding="async" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/studio/013.jpg" alt="Studio photo" loading="eager" decoding="async" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center top'}} />
+                 <img src="/images/gallery/pre-wedding/01.jpg" alt="Pre-wedding photo" loading="eager" decoding="async" className="w-full h-62 object-cover rounded-lg " style={{objectPosition: 'left bottom'}} />
+                 <img src="/images/gallery/studio/022.jpg" alt="Studio photo" loading="eager" decoding="async" className="w-full h-62 object-cover rounded-lg" style={{objectPosition: 'center center', }} />
+                 <img src="/images/gallery/pre-wedding/12.JPG" alt="Pre-wedding photo" loading="eager" decoding="async" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: 'left top'}} />
+                 <img src="/images/gallery/pre-wedding/11.jpg" alt="Pre-wedding photo" loading="eager" decoding="async" className="w-full h-52 object-cover rounded-lg" style={{objectPosition: '50% bottom'}} />
                  
                  
                </div>
