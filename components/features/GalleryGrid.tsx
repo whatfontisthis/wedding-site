@@ -119,6 +119,19 @@ function GallerySlider({ images }: GallerySliderProps) {
     }
   }, [goToNext, goToPrevious]);
 
+  // Preload nearby images so navigation feels instant
+  const PRELOAD_AHEAD = 3;
+  const PRELOAD_BEHIND = 1;
+  const preloadIndices: number[] = [];
+  for (let i = 1; i <= PRELOAD_AHEAD; i++) {
+    const idx = (currentIndex + i) % images.length;
+    preloadIndices.push(idx);
+  }
+  for (let i = 1; i <= PRELOAD_BEHIND; i++) {
+    const idx = (currentIndex - i + images.length) % images.length;
+    preloadIndices.push(idx);
+  }
+
   // 키보드 네비게이션 — stable listener, no re-attachment
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -177,6 +190,18 @@ function GallerySlider({ images }: GallerySliderProps) {
               priority
             />
           </div>
+          {/* Hidden preload for adjacent images */}
+          {preloadIndices.map((idx) => (
+            <div key={images[idx].src} className="absolute w-0 h-0 overflow-hidden">
+              <Image
+                src={images[idx].src}
+                alt=""
+                width={1}
+                height={1}
+                sizes="(max-width: 768px) 100vw, 80vw"
+              />
+            </div>
+          ))}
         </div>
 
         {/* 이전 버튼 - 데스크톱에서만 표시 */}
